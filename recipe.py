@@ -1,5 +1,6 @@
 import urllib
 import re
+import nltk
 from bs4 import BeautifulSoup
 from collections import Counter
 from nltk.tokenize import RegexpTokenizer
@@ -34,7 +35,7 @@ verb_tool = {
   'peel':'peeler',
 }
 
-
+#http://www.recipetips.com/kitchen-tips/t--482/units-of-measure.asp
 unit_abbreviation = {
 	'qt': 'quart',
     't': 'teaspoon',
@@ -96,12 +97,13 @@ def get_ingredients(soup, dct):
     letters = soup.find_all("span", itemprop="ingredients")
 
     for element in letters:
-        quantity, measurement, name, preparation = parse_ingredient(element.get_text().lower())
+        quantity, measurement, name, preparation, descriptor = parse_ingredient(element.get_text().lower())
         d = {
           'name': unicode(name),
           'quantity':quantity,
           'measurement':unicode(measurement),
           'preparation':  unicode(preparation),
+          'descriptor':  unicode(descriptor),
         }
         dct["ingredients"].append(d)
 
@@ -172,6 +174,7 @@ def parse_ingredient(ingredient):
     name = ''
     measurement = ''
     preparation = ''
+    descriptors = set()
 
     global unit_abbreviation
     synonyms = []
@@ -181,8 +184,21 @@ def parse_ingredient(ingredient):
     for key in unit_abbreviation:
         synonyms.append(key)
 
+
     ingLst = ingredient.split()
-    #print ingLst
+
+
+    # parsing descriptor
+    PosIngList = nltk.pos_tag(ingLst)
+    #print PosIngList
+    for index, tup in enumerate(PosIngList):
+    	ele, typ = tup[0], tup[1]
+    	if typ == 'NN' or typ =='NNS' and ele not in units:
+			for ele, tp in reversed(PosIngList[:index]):
+				if tp == 'JJ' or tp == 'VBD':
+					descriptors.add(ele)
+				
+
     quantityR = []
     measurementR = []
     for index, word in enumerate(ingLst):
@@ -211,15 +227,18 @@ def parse_ingredient(ingredient):
 
 
 
+
     for word in measurementR:
         if word in ingLst:
             ingLst.remove(word)
     for word in quantityR:
         if word in ingLst:
             ingLst.remove(word)
+    for word in descriptors:
+        ingLst.remove(word)
 
 
-    stopwords = ['or', 'more', 'as', 'needed', 'with', 'skin', 'to', 'taste', 'such']
+    stopwords = [ 'more', 'as', 'needed', 'with', 'skin', 'to', 'taste', 'such']
     for word in stopwords:
         if word in ingLst:
             ingLst.remove(word)
@@ -235,7 +254,12 @@ def parse_ingredient(ingredient):
 
     if preparation == '':
         preparation = None	
-    return quantity, measurement, name, preparation
+
+    descriptor = ", ".join(descriptors)
+    if not descriptor:
+    	descriptor = None
+
+    return quantity, measurement, name, preparation, descriptor
 
 
 def convert(s):
@@ -400,7 +424,7 @@ def print_recipe(dct):
 
 def main():
     read_file()
-    recipe = fetch_recipe('http://allrecipes.com/recipe/89268/triple-dipped-fried-chicken/?clickId=right%20rail%202&internalSource=rr_feed_recipe&referringId=89268&referringContentType=recipe')
+    recipe = fetch_recipe('http://allrecipes.com/recipe/87845/manicotti-italian-casserole/?clickId=right%20rail%201&internalSource=rr_feed_recipe&referringId=87845&referringContentType=recipe')
     print '\n'
     return
 
