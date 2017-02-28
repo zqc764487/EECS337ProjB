@@ -4,7 +4,7 @@
 from bs4 import BeautifulSoup
 import requests as r
 
-RECIPE_FILE = 'recipe_set.txt'
+RECIPE_FILE = 'resources/recipe_set.txt'
 BASE_URL = 'http://allrecipes.com'
 
 def parse_url(url):
