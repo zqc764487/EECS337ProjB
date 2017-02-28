@@ -8,6 +8,7 @@ from nltk.tokenize import RegexpTokenizer
 UNITS_FILE = "resources/units.txt"
 TOOLS_FILE = "resources/tools.txt"
 METHODS_FILE = "resources/methods.txt"
+VEGETARIAN_SUBSTITUTES = "resources/VegetarianIngredientSubstitutes.csv"
 
 units = []
 tools = []
