@@ -3,10 +3,31 @@
 
 from nltk import wordnet
 wn = wordnet.wordnet
+from util import loadCategorization
+
+FOOD_FILES = ['resources/VegetarianIngredientSubstitutes.csv']
 
 class Index(dict):
 	def __init__(self):
 		self.lemmas = {}
+
+	def search(self, query, n=None):
+		results = [self[name] for name in self if name.find(query) >= 0]
+		return results[:n] if n else results
+
+	def search_lemmas(self, query, n=None):
+		results = [node for lemma in self.lemmas if lemma.find(query) >= 0 for node in self.lemmas[lemma]]
+		return results[:n] if n else results
+
+	def pick_one(self, query):
+		if query in self:
+			return self[query]
+		if query in self.lemmas:
+			return self.lemmas[query][0]
+		for lemma in self.lemmas:
+			if lemma.find(query) >= 0 and len(self.lemmas[lemma]) > 0:
+				return self.lemmas[lemma][0]
+		return None
 
 class Node(object):
 	def __init__(self, name=None, synset=None, lemmas=None, properties=None,
@@ -14,7 +35,7 @@ class Node(object):
 		self.synset = synset				# WordNet synset corresponding to the node.
 		self.name = name or (self.synset.name() if self.synset else None)
 		self.lemmas = lemmas or [l.name() for l in self.synset.lemmas()] \
-					if self.synset else []	# Lemmas that may refer to the node.
+					if self.synset else [self.name]	# Lemmas that may refer to the node.
 		self.properties = properties or []	# Properties of the node.
 		self.parents = []
 		self.children = []
@@ -44,21 +65,15 @@ class Node(object):
 	def __repr__(self):
 		return '<Node %s>' % self.name
 
-	def pick_one(self, query):
-		if query in self.lemmas:
-			return self.lemmas[query]
-		for lemma in self.lemmas:
-			if query in lemma:
-				return self.lemmas[lemma][0]
-		return None
+	def __len__(self):
+		return len(self.index)
 
 	def search(self, query, n=None):
-		results = [self.index[name] for name in self.index if query in name]
+		results = self.index.search(query) + self.index.search_lemmas(query)
 		return results[:n] if n else results
 
-	def search_lemmas(self, query, n=None):
-		results = [node for lemma in self.index.lemmas if query in lemma for node in self.index.lemmas[lemma]]
-		return results[:n] if n else results
+	def pick_one(self, query):
+		return self.index.pick_one(query)
 
 	def add_parent(self, parent):
 		if parent not in self.parents:
@@ -180,73 +195,96 @@ class Node(object):
 					best_ancestor, best_position = a, p
 		return best_ancestor
 
+	def print_graph(self, tab=0):
+		print '\t' * tab + str(self)
+		for child in self.children:
+			child.print_graph(tab=tab+1)
+
 def wn_subgraph(synsets, max_depth=-1, index=None, toplevel=True):
 	"""
 	Given a list of WordNet synsets, construct a Graph of Nodes corresponding
 	to all the hyponyms of those synsets up to max_depth.  A negative max_depth
 	means the depth is unbounded.  index and toplevel are used internally.
-
-	Returns the Nodes in the graph corresponding to each synset.
+	
+	Returns the root of the graph if toplevel if True, otherwise returns the
+	nodes corresponding to each synset given.
 	"""
 
 	# Initial setup.
-	index = index or {}
-	roots = [index[synset] if synset in index else Node(synset=synset, index=index)\
-				for synset in synsets]
+	index = index or Index()
+	roots = [index[synset.name()] if synset.name() in index else\
+				Node(synset=synset, index=index) for synset in synsets]
 
 	# Recursively attach WordNet hyponyms to the graph.
 	if max_depth != 0:
 		for root in roots:
-			hyps = synset.hyponyms()
+			hyps = root.synset.hyponyms()
 			children = wn_subgraph(hyps, max_depth=max_depth-1, index=index, toplevel=False)
 			root.add_children(children)
 
 	# Make any other connections needed using the populated index.
 	if toplevel: # Only do this once.
+		root = Node(name='<root>', index=index, children=roots)
 		def connect_parents(node):
-			for hyp in node.synset.hypernyms():
-				# We only care about synsets that are part of the subgraph.
-				if hyp in index:
-					index[hyp].add_child(node)
-		for root in roots:
-			root.walk_descendants(connect_parents)
+			if node.synset:
+				for hyp in node.synset.hypernyms():
+					# We only care about synsets that are part of the subgraph.
+					if hyp.name() in index:
+						index[hyp.name()].add_child(node)
+		root.walk_descendants(connect_parents)
+		return root
+	# Return the roots if not toplevel.
 	return roots
 
-def make_sample_graph():
-	food = Node(synset='food')
-	fruit = Node(synset='fruit', properties=['fruit'], parents=[food])
-	animal = Node(synset='animal product', properties=['animal'], parents=[food])
-	eggs = Node(synset='eggs', parents=[animal])
-	dairy = Node(synset='dairy', properties=['dairy'], parents=[animal])
-	cheese = Node(synset='cheese', properties=['base'], parents=[dairy])
-	meat = Node(synset='meat', properties=['meat', 'base'], parents=[animal])
-	red_meat = Node(synset='red_meat', properties=['base'], parents=[meat])
-	beef = Node(synset='beef', parents=[red_meat])
-	fish = Node(synset='fish', parents=[meat], properties=['fish', 'base'])
-	rockfish = Node(synset='rockfish', parents=[fish])
-	catfish = Node(synset='catfish', parents=[fish])
-	poultry = Node(synset='poultry', parents=[meat], properties=['poultry', 'base'])
-	chicken = Node(synset='chicken', parents=[poultry])
-	turkey = Node(synset='turkey', parents=[poultry])
+def sample_graph():
+	food = Node(name='food')
+	fruit = Node(name='fruit', properties=['fruit'], parents=[food])
+	animal = Node(name='animal product', properties=['animal'], parents=[food])
+	eggs = Node(name='eggs', parents=[animal])
+	dairy = Node(name='dairy', properties=['dairy'], parents=[animal])
+	cheese = Node(name='cheese', properties=['base'], parents=[dairy])
+	meat = Node(name='meat', properties=['meat', 'base'], parents=[animal])
+	red_meat = Node(name='red_meat', properties=['base'], parents=[meat])
+	beef = Node(name='beef', parents=[red_meat])
+	fish = Node(name='fish', parents=[meat], properties=['fish', 'base'])
+	rockfish = Node(name='rockfish', parents=[fish])
+	catfish = Node(name='catfish', parents=[fish])
+	poultry = Node(name='poultry', parents=[meat], properties=['poultry', 'base'])
+	chicken = Node(name='chicken', parents=[poultry])
+	turkey = Node(name='turkey', parents=[poultry])
 
-	tofu = Node(synset='tofu', properties=['tofu'])
-	protein = Node(synset='protein', properties=['protein'], children=[meat, fish, poultry, tofu], parents=[food])
-	tofurkey = Node(synset='tofurkey', parents=[tofu, turkey], cancels=[meat])
+	tofu = Node(name='tofu', properties=['tofu'], parents=[food])
+	protein = Node(name='protein', properties=['protein'], children=[meat, fish, poultry, tofu], parents=[food])
+	tofurkey = Node(name='tofurkey', parents=[tofu, turkey], cancels=[meat])
 
 	return food
 
-#def read_file_to_graph(file, graph=None):
+def read_graph_files(files, graph=None):
+	"""
+	Reads food categories from a file either converts them to a graph or adds them
+	to an existing one, based on whether graph is given.  Attempts to convert category
+	names into nodes based on node names, then lemmas.
+
+	Return either the original graph or a root node for the new graph.
+	"""
+	# TODO: Change this to add alternatives.
+	index = graph.index if graph else Index()
+	roots = []
+	for file in files:
+		for category, members in loadCategorization(file).iteritems():
+			root = index.pick_one(category) or Node(name=category, index=index)
+			roots.append(root)
+			for member in members:
+				child = index.pick_one(member) or Node(name=member, index=index)
+				child.add_parent(root)
+	root = Node(name='<root>', index=index, children=roots)
+	return root
 
 def food_graph(files=None):
-	roots = wn_subgraph([wn.synset('food.n.01'), wn.synset('food.n.02')])
-	#if files:
-	#	for file in files:
-	#		read_file_to_graph()
-	return graph
+	root = wn_subgraph([wn.synset('food.n.01'), wn.synset('food.n.02')])
+	if files:
+		read_graph_files(files, root)
+	return root
 
-# graph = food_graph()
-# lemmas = make_lemma_index(index)
+# graph = food_graph(files=FOOD_FILES)
 
-# TODO:
-# -Read graph additions from .txt/.csv file.
-# -
