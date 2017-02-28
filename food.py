@@ -11,22 +11,45 @@ class Index(dict):
 	def __init__(self):
 		self.lemmas = {}
 
-	def search(self, query, n=None):
-		results = [self[name] for name in self if name.find(query) >= 0]
+	def _all_properties(self, node, properties):
+		return not properties or all(p in node.properties for p in properties)
+
+	def search(self, query=None, n=None, properties=None):
+		if query:
+			results = [self[name] for name in self if name.find(query) >= 0]
+		else:
+			results = self.values()
+		if properties: # List of properties that must be directly on the node.
+			results = [r for r in results if self._all_properties(r, properties)]
 		return results[:n] if n else results
 
-	def search_lemmas(self, query, n=None):
-		results = [node for lemma in self.lemmas if lemma.find(query) >= 0 for node in self.lemmas[lemma]]
+	def search_lemmas(self, query=None, n=None, properties=None):
+		if query:
+			results = [node for lemma in self.lemmas if lemma.find(query) >= 0 for node in self.lemmas[lemma]]
+		else:
+			results = self.values()
+		if properties: # List of properties that must be directly on the node.
+			results = [r for r in results if self._all_properties(r, properties)]
 		return results[:n] if n else results
 
-	def pick_one(self, query):
+	def pick_one(self, query=None, properties=None):
+		if not query:
+			results = self.values()
+			for result in results:
+				if self._all_properties(result, properties):
+					return result
 		if query in self:
-			return self[query]
+			if self._all_properties(self[query], properties):
+				return self[query]
 		if query in self.lemmas:
-			return self.lemmas[query][0]
+			for result in self.lemmas[query]:
+				if self._all_properties(result, properties):
+					return result
 		for lemma in self.lemmas:
 			if lemma.find(query) >= 0 and len(self.lemmas[lemma]) > 0:
-				return self.lemmas[lemma][0]
+				for result in self.lemmas[lemma]:
+					if self._all_properties(result, properties):
+						return result
 		return None
 
 class Node(object):
@@ -68,12 +91,17 @@ class Node(object):
 	def __len__(self):
 		return len(self.index)
 
-	def search(self, query, n=None):
-		results = self.index.search(query) + self.index.search_lemmas(query)
+	def search(self, query=None, n=None, properties=None):
+		raw_results = self.index.search(query=query, properties=properties) + \
+						self.index.search_lemmas(query=query, properties=properties)
+		results = []
+		for result in raw_results:
+			if result not in results:
+				results.append(result)
 		return results[:n] if n else results
 
-	def pick_one(self, query):
-		return self.index.pick_one(query)
+	def pick_one(self, query=None, properties=None):
+		return self.index.pick_one(query=query, properties=properties)
 
 	def add_parent(self, parent):
 		if parent not in self.parents:
@@ -195,6 +223,14 @@ class Node(object):
 					best_ancestor, best_position = a, p
 		return best_ancestor
 
+	def is_a(self, ancestor):
+		if self == ancestor:
+			return True
+		for parent in self.parents:
+			if parent.is_a(ancestor):
+				return True
+		return False
+
 	def print_graph(self, tab=0):
 		print '\t' * tab + str(self)
 		for child in self.children:
@@ -267,24 +303,25 @@ def read_graph_files(files, graph=None):
 
 	Return either the original graph or a root node for the new graph.
 	"""
-	# TODO: Change this to add alternatives.
 	index = graph.index if graph else Index()
 	roots = []
 	for file in files:
 		for category, members in loadCategorization(file).iteritems():
-			root = index.pick_one(category) or Node(name=category, index=index)
+			category, members = category.strip(), [member.strip() for member in members]
+			base = index.pick_one(category) or Node(name=category, index=index)
+			name = category + ' alternatives'
+			root = index.pick_one(name) or Node(name=name, index=index, properties=['alternatives'])
+			root.add_child(base)
 			roots.append(root)
 			for member in members:
 				child = index.pick_one(member) or Node(name=member, index=index)
 				child.add_parent(root)
-	root = Node(name='<root>', index=index, children=roots)
-	return root
+	return graph if graph else Node(name='<root>', index=index, children=roots)
 
-def food_graph(files=None):
+def food_graph(files=FOOD_FILES):
 	root = wn_subgraph([wn.synset('food.n.01'), wn.synset('food.n.02')])
 	if files:
-		read_graph_files(files, root)
+		read_graph_files(files, graph=root)
 	return root
 
 # graph = food_graph(files=FOOD_FILES)
-
