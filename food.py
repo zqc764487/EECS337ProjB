@@ -4,12 +4,17 @@
 from nltk import wordnet
 wn = wordnet.wordnet
 
+class Index(dict):
+	def __init__(self):
+		self.lemmas = {}
+
 class Node(object):
-	def __init__(self, synset=None, lemmas=None, properties=None,
-						parents=None, children=None, cancels=None):
+	def __init__(self, name=None, synset=None, lemmas=None, properties=None,
+						parents=None, children=None, cancels=None, index=None):
 		self.synset = synset				# WordNet synset corresponding to the node.
+		self.name = name or (self.synset.name() if self.synset else None)
 		self.lemmas = lemmas or [l.name() for l in self.synset.lemmas()] \
-					if self.synset and hasattr(self.synset, 'lemmas') else []	# Lemmas that may refer to the node.
+					if self.synset else []	# Lemmas that may refer to the node.
 		self.properties = properties or []	# Properties of the node.
 		self.parents = []
 		self.children = []
@@ -20,17 +25,40 @@ class Node(object):
 			self.add_children(children)
 		if cancels:
 			self.add_cancels(cancels)
+		# Use assigned index or first index found among parents, then children.
+		# If no indexes are found, create one.
+		if index is None:
+			indexes = [node.index for node in self.parents + self.children if node.index]
+			index = indexes[0] if len(indexes) > 0 else Index()
+		self.index = index
+		if self.name:
+			self.index[self.name] = self
+			for lemma in self.lemmas:
+				if lemma not in self.index.lemmas:
+					self.index.lemmas[lemma] = []
+				self.index.lemmas[lemma].append(self)
 
 	def __str__(self):
-		return '<Node %s>' % self.synset_name()
+		return '<Node %s>' % self.name
 
 	def __repr__(self):
-		return '<Node %s>' % self.synset_name()
+		return '<Node %s>' % self.name
 
-	def synset_name(self):
-		if isinstance(self.synset, basestring):
-			return self.synset
-		return self.synset.name()
+	def pick_one(self, query):
+		if query in self.lemmas:
+			return self.lemmas[query]
+		for lemma in self.lemmas:
+			if query in lemma:
+				return self.lemmas[lemma][0]
+		return None
+
+	def search(self, query, n=None):
+		results = [self.index[name] for name in self.index if query in name]
+		return results[:n] if n else results
+
+	def search_lemmas(self, query, n=None):
+		results = [node for lemma in self.index.lemmas if query in lemma for node in self.index.lemmas[lemma]]
+		return results[:n] if n else results
 
 	def add_parent(self, parent):
 		if parent not in self.parents:
@@ -132,25 +160,46 @@ class Node(object):
 				return item
 		return None
 
-def make_wn_subgraph(synset, max_depth=-1, index=None, toplevel=True):
+	def ancestors(self):
+		ancestors = []
+		queue = [parent for parent in self.parents]
+		while queue:
+			item, queue = queue[0], queue[1:]
+			if item not in ancestors:
+				ancestors.append(item)
+			queue += item.parents
+		return ancestors
+
+	def shared_ancestor(self, other):
+		other_ancestors = other.ancestors()
+		best_ancestor, best_position = None, len(other_ancestors)
+		for a in self.ancestors():
+			if a in other_ancestors:
+				p = other_ancestors.index(a)
+				if p < best_position:
+					best_ancestor, best_position = a, p
+		return best_ancestor
+
+def wn_subgraph(synsets, max_depth=-1, index=None, toplevel=True):
 	"""
-	Given a WordNet synset, construct a graph of Nodes corresponding to
-	all the hyponyms of that synset up to max_depth.  A negative max_depth
+	Given a list of WordNet synsets, construct a Graph of Nodes corresponding
+	to all the hyponyms of those synsets up to max_depth.  A negative max_depth
 	means the depth is unbounded.  index and toplevel are used internally.
 
-	Returns the root node of the graph and an index of all synsets in it.
+	Returns the Nodes in the graph corresponding to each synset.
 	"""
 
 	# Initial setup.
 	index = index or {}
-	graph = index[synset] if synset in index else Node(synset=synset)
-	index[synset] = graph
-	
+	roots = [index[synset] if synset in index else Node(synset=synset, index=index)\
+				for synset in synsets]
+
 	# Recursively attach WordNet hyponyms to the graph.
 	if max_depth != 0:
-		for hyp in synset.hyponyms():
-			subgraph, index = make_wn_subgraph(hyp, max_depth=max_depth-1, index=index, toplevel=False)
-			graph.add_child(subgraph)
+		for root in roots:
+			hyps = synset.hyponyms()
+			children = wn_subgraph(hyps, max_depth=max_depth-1, index=index, toplevel=False)
+			root.add_children(children)
 
 	# Make any other connections needed using the populated index.
 	if toplevel: # Only do this once.
@@ -159,8 +208,9 @@ def make_wn_subgraph(synset, max_depth=-1, index=None, toplevel=True):
 				# We only care about synsets that are part of the subgraph.
 				if hyp in index:
 					index[hyp].add_child(node)
-		graph.walk_descendants(connect_parents)
-	return graph, index
+		for root in roots:
+			root.walk_descendants(connect_parents)
+	return roots
 
 def make_sample_graph():
 	food = Node(synset='food')
@@ -185,16 +235,18 @@ def make_sample_graph():
 
 	return food
 
-def make_food_graph():
-	return make_wn_subgraph(wn.synset('food.n.01'))
+#def read_file_to_graph(file, graph=None):
 
-def make_lemma_index(index):
-	"""Converts a {synset: Node} index into a {lemma: Node} index."""
-	lemma_index = {}
-	for syn in index:
-		for lemma in syn.lemmas():
-			lemma_index[lemma.name()] = index[syn]
-	return lemma_index
+def food_graph(files=None):
+	roots = wn_subgraph([wn.synset('food.n.01'), wn.synset('food.n.02')])
+	#if files:
+	#	for file in files:
+	#		read_file_to_graph()
+	return graph
 
-# graph, index = make_food_graph()
+# graph = food_graph()
 # lemmas = make_lemma_index(index)
+
+# TODO:
+# -Read graph additions from .txt/.csv file.
+# -
