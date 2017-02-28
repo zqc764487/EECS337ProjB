@@ -5,6 +5,11 @@ from bs4 import BeautifulSoup
 from collections import Counter
 from nltk.tokenize import RegexpTokenizer
 
+UNITS_FILE = "resources/units.txt"
+TOOLS_FILE = "resources/tools.txt"
+METHODS_FILE = "resources/methods.txt"
+VEGETARIAN_SUBSTITUTES = "resources/VegetarianIngredientSubstitutes.csv"
+
 units = []
 tools = []
 methods = []
@@ -69,21 +74,21 @@ def fetch_recipe(url):
     return results
 
 def read_file():
-    text_file = open("units.txt", "r")
+    text_file = open(UNITS_FILE, "r")
     lines = text_file.readlines()
     global units
     for x in lines:
         new = x.rstrip('\n')
         units.append(unicode(new, 'utf-8'))
 
-    text_file = open("tools.txt", "r")
+    text_file = open(TOOLS_FILE, "r")
     lines = text_file.readlines()
     global tools
     for x in lines:
         new = x.rstrip('\n')
         tools.append(new)
 
-    text_file = open("methods.txt", "r")
+    text_file = open(METHODS_FILE, "r")
     lines = text_file.readlines()
     global methods
     for x in lines:
