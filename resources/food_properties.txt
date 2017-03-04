@@ -1,4 +1,3 @@
-chicken,soy chicken,eggplant ,,,,,,,
-fish,tofu,tempeh,,,,,,,
-beef,tofu,tempeh,seitan,mushrooms,eggplant,jackfruit,beans,lentils,legumes
-pork,tofu,soy pork,jackfruit,,,,,,
+meat,+protein,+meat,+animal
+tofu,+protein,-meat,-animal
+egg,+protein,+animal

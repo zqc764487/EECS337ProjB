@@ -10,8 +10,18 @@ SUBSTITUTE_FILES = ['resources/VegetarianIngredientSubstitutes.csv']
 # Properties to attach to various nodes.
 PROPERTIES_FILES = ['resources/food_properties.txt']
 
+def _strip_local(prop):
+	if prop.startswith('.'):
+		return prop[1:]
+	return prop
+
 def _strip_pos(prop):
 	if prop.startswith('+'):
+		return prop[1:]
+	return prop
+
+def _strip_neg(prop):
+	if prop.startswith('-'):
 		return prop[1:]
 	return prop
 
@@ -21,6 +31,14 @@ def _make_local(prop):
 	elif not prop.startswith('-') and not prop.startswith('.'):
 		return '.' + prop
 	return prop
+
+def _make_pos(prop):
+	if prop.startswith('+'):
+		return prop
+	elif prop.startswith('-') or prop.startswith('.'):
+		return '+' + prop[1:]
+	else:
+		return '+' + prop
 
 def _make_neg(prop):
 	if prop.startswith('-'):
@@ -50,7 +68,8 @@ def property_match(prop, plist):
 	prop = _strip_pos(prop)
 	plist = [_strip_pos(p) for p in plist]
 	if prop.startswith('-'):
-		return prop in plist or prop[1:] not in plist
+		return prop in plist or (_strip_neg(prop) not in plist and \
+			_make_local(_strip_neg(prop)) not in plist)
 	else:
 		return prop in plist and _make_neg(prop) not in plist
 
@@ -119,10 +138,12 @@ class Node(object):
 		self.name = name or (self.synset.name() if self.synset else None)
 		self.lemmas = lemmas or [l.name() for l in self.synset.lemmas()] \
 					if self.synset else [self.name]	# Lemmas that may refer to the node.
-		self.properties = properties or []	# Properties of the node.
+		self.properties = []
 		self.parents = []
 		self.children = []
 		self.cancels = []
+		if properties:
+			self.add_properties(properties)
 		if parents:
 			self.add_parents(parents)
 		if children:
@@ -162,6 +183,14 @@ class Node(object):
 
 	def pick_one(self, query=None, properties=None):
 		return self.index.pick_one(query=query, properties=properties)
+
+	def add_property(self, property):
+		if property not in self.properties:
+			self.properties.append(property)
+
+	def add_properties(self, properties):
+		for property in properties:
+			self.add_property(property)
 
 	def add_parent(self, parent):
 		if parent not in self.parents:
@@ -389,9 +418,29 @@ def sample_graph():
 
 	return food
 
-def read_substitute_files(files, graph=None):
+def read_category_files(files, graph=None):
 	"""
 	Reads food categories from a file either converts them to a graph or adds them
+	to an existing one, based on whether graph is given.  Attempts to convert category
+	names into nodes based on node names, then lemmas.
+
+	Return either the original graph or a root node for the new graph.
+	"""
+	index = graph.index if graph else Index()
+	roots = []
+	for file in files:
+		for category, members in loadCategorization(file).iteritems():
+			category, members = category.strip(), [member.strip() for member in members]
+			root = index.pick_one(category) or Node(name=category, index=index)
+			roots.append(root)
+			for member in members:
+				child = index.pick_one(member) or Node(name=member, index=index)
+				child.add_parent(root)
+	return graph if graph else Node(name='<root>', index=index, children=roots)
+
+def read_substitute_files(files, graph=None):
+	"""
+	Reads food substitutions from a file either converts them to a graph or adds them
 	to an existing one, based on whether graph is given.  Attempts to convert category
 	names into nodes based on node names, then lemmas.
 
@@ -412,10 +461,33 @@ def read_substitute_files(files, graph=None):
 				child.add_parent(root)
 	return graph if graph else Node(name='<root>', index=index, children=roots)
 
-def food_graph(files=SUBSTITUTE_FILES):
+def read_property_files(files, graph, signal=False):
+	"""
+	Reads food properties from a file and adds those properties to the graph.
+	Attempts to convert category names into nodes based on node names, then lemmas.
+	
+	If signal, print a warning every time a nonexistent node is given properties.
+
+	Return the graph.
+	"""
+	for file in files:
+		for category, properties in loadCategorization(file).iteritems():
+			category, properties = category.strip(), [property.strip() for property in properties]
+			root = graph.pick_one(category)
+			if root:
+				root.add_properties(properties)
+			else:
+				root = Node(name=category, index=graph.index, properties=properties)
+				if signal:
+					sys.stderr.write('Warning: Node %s created with properties %s.\n' % (category, properties))
+	return graph
+
+def food_graph(subs=SUBSTITUTE_FILES, props=PROPERTIES_FILES):
 	root = wn_subgraph([wn.synset('food.n.01'), wn.synset('food.n.02')])
-	if files:
-		read_substitute_files(files, graph=root)
+	if subs:
+		read_substitute_files(subs, graph=root)
+	if props:
+		read_property_files(props, root, signal=True)
 	return root
 
 # graph = food_graph(files=SUBSTITUTE_FILES)
