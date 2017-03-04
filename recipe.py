@@ -70,7 +70,7 @@ def fetch_recipe(url):
     get_structuredsteps(soup, results)
 
     #test print recipe
-    print_recipe(results)
+    #print_recipe(results)
     return results
 
 def read_file():
@@ -164,8 +164,8 @@ def get_structuredsteps(soup, dct):
                         cooking_time += step_list[x]+ ' ' + step_list[x+1] + ' '
             d = {
                 'step': step,
-                'tools': set(tools_list),
-                'methods' : set(method_list),
+                'tools': list(set(tools_list)),
+                'methods' : list(set(method_list)),
                 'cooking time': cooking_time,
                 'ingredients' : ingredient_list
             }
@@ -240,7 +240,8 @@ def parse_ingredient(ingredient):
         if word in ingLst:
             ingLst.remove(word)
     for word in descriptors:
-        ingLst.remove(word)
+        if word in ingLst:
+            ingLst.remove(word)
 
 
     stopwords = [ 'more', 'as', 'needed', 'with', 'skin', 'to', 'taste', 'such']
@@ -427,12 +428,12 @@ def print_recipe(dct):
 
 
 
-def main():
-    read_file()
-    recipe = fetch_recipe('http://allrecipes.com/recipe/87845/manicotti-italian-casserole/?clickId=right%20rail%201&internalSource=rr_feed_recipe&referringId=87845&referringContentType=recipe')
-    print '\n'
-    return
+#def main():
+    #read_file()
+    #recipe = fetch_recipe('http://allrecipes.com/recipe/87845/manicotti-italian-casserole/?clickId=right%20rail%201&internalSource=rr_feed_recipe&referringId=87845&referringContentType=recipe')
+    #print '\n'
+    #return
 
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+ #   main()
