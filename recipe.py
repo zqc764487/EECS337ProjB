@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from collections import Counter
 from nltk.tokenize import RegexpTokenizer
 from urlparse import urljoin
+import random
 
 UNITS_FILE = "resources/units.txt"
 TOOLS_FILE = "resources/tools.txt"
@@ -424,6 +425,7 @@ def print_recipe(dct):
                     else:
                         print value
             print '\n'
+
 def fetchRecipeURL(req_recipe):
     baseURL = 'http://allrecipes.com/search/results/'
     params = '?wt=' + req_recipe.replace(' ', '%20') + '&sort=re'
@@ -432,29 +434,12 @@ def fetchRecipeURL(req_recipe):
     soup = BeautifulSoup(r, "html.parser")
 
     baseSite = 'http://allrecipes.com'
-    for a in soup.find_all('a', href=True):
-        href = a.get('href')
-        if href.startswith('/recipe'):
-            if not href.startswith('http'):
-                href = urljoin(baseSite, href)
-
-        print(href)
-    print type(soup.find_all("article")) #class_="recipe-directions__list--item")
-
-def fetchRecipeURL2(req_recipe):
-    baseURL = 'http://allrecipes.com/search/results/'
-    params = '?wt=' + req_recipe.replace(' ', '%20') + '&sort=re'
-
-    r = urllib.urlopen(baseURL + params).read()
-    soup = BeautifulSoup(r, "html.parser")
-
-    baseSite = 'http://allrecipes.com'
-
-    for article in soup.find_all(attrs={'class':'grid-col--fixed-tiles'}):
-        #print article
-        links = article.find_all('a')
-        full_links = [x.get("href") for x in links] 
-    #print type(soup.find_all("article")) #class_="recipe-directions__list--item")
+    links = []
+    for article in soup.find_all('article', attrs={'class':'grid-col--fixed-tiles'}):
+        for link in article('a', attrs={'href':True}):
+            if link['href'].startswith('/recipe'):
+                links.append(urljoin(baseSite, link['href']))
+    return random.choice(links[1:])
 
 
 
