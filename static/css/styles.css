@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #fafafa
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  line-height: 1.43;
+  color: rgb(72, 72, 72);
+  -webkit-font-smoothing: antialiased;
+  height: 100vh;
+}
+
+#content {
+  padding-top: 50px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+#content h1 {
+  text-align: center;
+}
+
+#recipe-form {
+  text-align: center;
+}
+
+#recipe-form #recipe-input {
+  display: inline-block;
+  width: 100%;
+
+  font-size: 1em;
+
+  box-shadow: rgb(220, 224, 224) 0px 1px 3px 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 15px 16px 15px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(220, 224, 224);
+  border-radius: 4px;
+  outline: none;
+}
+
+#recipe-form #recipe-search-button {
+  display: inline-block;
+
+  color: #fff;
+  font-size: 1.15em;
+  font-weight: 700;
+
+  border: solid 0 #e3edf4;
+  border-bottom: 2px solid #e76969;
+  border-radius: 4px;
+  outline: none;
+
+  background: #f47e7e;
+
+  padding: 8px 20px;
+  margin: 7px;
+
+  cursor: pointer;
+}

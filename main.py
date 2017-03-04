@@ -18,17 +18,25 @@ PASSWORD = 'default'
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+
+# Routes
 @app.route('/')
 def show_vanilla_home():
-    #return render_template('index.html') #Loads Welcome Page
-    return "Hello World"
+  return render_template('index.html')
 
 @app.route('/fetchRecipe')
 def fetchRecipe():
 	recipe = fetch_recipe('http://allrecipes.com/recipe/219929/heathers-fried-chicken/')
-	return str(recipe)
+	return jsonify(recipe)
 
+# Error Handlers
+@app.errorhandler(500)
+def internal_error(error):
+  return "500 Internal Error"
 
+@app.errorhandler(404)
+def not_found(error):
+  return "404 Error: Page not found", 404
 
 if __name__ == '__main__':
     #app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))

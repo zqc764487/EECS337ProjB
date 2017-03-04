@@ -5,14 +5,93 @@ from nltk import wordnet
 wn = wordnet.wordnet
 from util import loadCategorization
 
-FOOD_FILES = ['resources/VegetarianIngredientSubstitutes.csv']
+# Substitution lists.
+SUBSTITUTE_FILES = ['resources/VegetarianIngredientSubstitutes.csv']
+# Properties to attach to various nodes.
+PROPERTIES_FILES = ['resources/food_properties.txt']
+
+def _strip_local(prop):
+	if prop.startswith('.'):
+		return prop[1:]
+	return prop
+
+def _strip_pos(prop):
+	if prop.startswith('+'):
+		return prop[1:]
+	return prop
+
+def _strip_neg(prop):
+	if prop.startswith('-'):
+		return prop[1:]
+	return prop
+
+def _make_local(prop):
+	if prop.startswith('+'):
+		return '.' + prop[1:]
+	elif not prop.startswith('-') and not prop.startswith('.'):
+		return '.' + prop
+	return prop
+
+def _make_pos(prop):
+	if prop.startswith('+'):
+		return prop
+	elif prop.startswith('-') or prop.startswith('.'):
+		return '+' + prop[1:]
+	else:
+		return '+' + prop
+
+def _make_neg(prop):
+	if prop.startswith('-'):
+		return prop
+	elif prop.startswith('+') or prop.startswith('.'):
+		return '-' + prop[1:]
+	else:
+		return '-' + prop
+
+def property_match(prop, plist):
+	"""
+	Return True if property prop matches the list of properties plist.
+
+	There are three types of properties:
+		+prop = positive properties
+		-prop = negative properties
+		.prop = local properties
+	Properties without a +, -, or . are considered positive.  Local
+	properties are also considered positive but do not inherit.
+	
+	A positive property will match a plist if a positive form of that
+	property appears in the plist and no negative form does.
+
+	A negative property will match a plist if a negative form of that
+	property appears in the plist or no positive form does.
+	"""
+	prop = _strip_pos(prop)
+	plist = [_strip_pos(p) for p in plist]
+	if prop.startswith('-'):
+		return prop in plist or (_strip_neg(prop) not in plist and \
+			_make_local(_strip_neg(prop)) not in plist)
+	else:
+		return prop in plist and _make_neg(prop) not in plist
+
+def all_properties(node, plist):
+	"""
+	Return True if the node's properties match the list of properties
+	plist.
+
+	The properties in plist can be positive, indicating the node must
+	have that property; negative, indicating the node must not have
+	that property; or local, indicating that the property must be on
+	that node and not inherited.
+	"""
+	if not plist:
+		return True
+	props = [_strip_pos(p) for p in node.get_properties(local=True)]
+	plist = [_strip_pos(p) for p in plist]
+	return all(property_match(p, props) for p in plist)
 
 class Index(dict):
 	def __init__(self):
 		self.lemmas = {}
-
-	def _all_properties(self, node, properties):
-		return not properties or all(p in node.properties for p in properties)
 
 	def search(self, query=None, n=None, properties=None):
 		if query:
@@ -20,7 +99,7 @@ class Index(dict):
 		else:
 			results = self.values()
 		if properties: # List of properties that must be directly on the node.
-			results = [r for r in results if self._all_properties(r, properties)]
+			results = [r for r in results if all_properties(r, properties)]
 		return results[:n] if n else results
 
 	def search_lemmas(self, query=None, n=None, properties=None):
@@ -29,26 +108,26 @@ class Index(dict):
 		else:
 			results = self.values()
 		if properties: # List of properties that must be directly on the node.
-			results = [r for r in results if self._all_properties(r, properties)]
+			results = [r for r in results if all_properties(r, properties)]
 		return results[:n] if n else results
 
 	def pick_one(self, query=None, properties=None):
 		if not query:
 			results = self.values()
 			for result in results:
-				if self._all_properties(result, properties):
+				if all_properties(result, properties):
 					return result
 		if query in self:
-			if self._all_properties(self[query], properties):
+			if all_properties(self[query], properties):
 				return self[query]
 		if query in self.lemmas:
 			for result in self.lemmas[query]:
-				if self._all_properties(result, properties):
+				if all_properties(result, properties):
 					return result
 		for lemma in self.lemmas:
 			if lemma.find(query) >= 0 and len(self.lemmas[lemma]) > 0:
 				for result in self.lemmas[lemma]:
-					if self._all_properties(result, properties):
+					if all_properties(result, properties):
 						return result
 		return None
 
@@ -59,10 +138,12 @@ class Node(object):
 		self.name = name or (self.synset.name() if self.synset else None)
 		self.lemmas = lemmas or [l.name() for l in self.synset.lemmas()] \
 					if self.synset else [self.name]	# Lemmas that may refer to the node.
-		self.properties = properties or []	# Properties of the node.
+		self.properties = []
 		self.parents = []
 		self.children = []
 		self.cancels = []
+		if properties:
+			self.add_properties(properties)
 		if parents:
 			self.add_parents(parents)
 		if children:
@@ -103,6 +184,14 @@ class Node(object):
 	def pick_one(self, query=None, properties=None):
 		return self.index.pick_one(query=query, properties=properties)
 
+	def add_property(self, property):
+		if property not in self.properties:
+			self.properties.append(property)
+
+	def add_properties(self, properties):
+		for property in properties:
+			self.add_property(property)
+
 	def add_parent(self, parent):
 		if parent not in self.parents:
 			self.parents.append(parent)
@@ -129,7 +218,7 @@ class Node(object):
 	def add_cancels(self, cancels):
 		self.cancels += cancels
 
-	def walk_descendants(self, fn, before=True, test=False):
+	def walk_descendants(self, fn, before=True, test=False, properties=None):
 		"""
 		Walk down the graph and call function fn on every node along the
 		way.
@@ -142,20 +231,26 @@ class Node(object):
 		the walk will stop when fn returns any non-false value and return
 		that value.  Otherwise the results of fn will be ignored and the
 		walk will return nothing.
+
+		properties determines whether fn will be called for a given node.
+		If properties is None, fn will always be called.  If properties is a
+		property list, fn will only be called on nodes that match
+		the property list.
 		"""
-		if before:
+		if before and all_properties(self, properties):
 			result = fn(self)
 			if test and result:
 				return result
 		for child in self.children:
-			child.walk_descendants(fn, before=before, test=test)
-		if not before:
+			child.walk_descendants(fn, before=before, test=test, properties=properties)
+		if not before and all_properties(self, properties):
 			result = fn(self)
 			if test and result:
 				return result
 		return None
 
-	def walk_ancestors(self, fn, before=True, test=False, cancels=None):
+	def walk_ancestors(self, fn, before=True, test=False, properties=None,
+						cancels=None):
 		"""
 		Walk up the graph and call function fn on every node along the
 		way.
@@ -169,31 +264,48 @@ class Node(object):
 		that value.  Otherwise the results of fn will be ignored and the
 		walk will return nothing.
 
+		properties determines whether fn will be called for a given node.
+		If properties is None, fn will always be called.  If properties is a
+		property list, fn will only be called on nodes that match
+		the property list.
+
 		cancels is used internally.
 		"""
 		cancels = self.cancels + (cancels or [])
-		if before:
+		if before and all_properties(self, properties):
 			result = fn(self)
 			if test and result:
 				return result
 		for parent in self.parents:
 			if parent not in cancels:
-				parent.walk_ancestors(fn, before=before, test=test, cancels=cancels)
-		if not before:
+				parent.walk_ancestors(fn, before=before, test=test, properties=properties, cancels=cancels)
+		if not before and all_properties(self, properties):
 			result = fn(self)
 			if test and result:
 				return result
 		return None
 
 	def has_property(self, property):
-		return self.walk_ancestors(lambda n: property in n.properties, test=True)
+		# There's probably a quicker way to do this with walk_ancestors and test=True.
+		# However, taking +prop and -prop into account makes this nontrivial.
+		# Therefore let's just use get_properties.
+		return check_property(property, self.get_properties())
 
-	def get_properties(self):
-		properties = []
-		self.walk_ancestors(lambda n: properties.extend([p for p in n.properties if p not in properties]))
+	def get_properties(self, local=False):
+		# If local, pretend all positive direct properties are local.
+		if local:
+			properties = [_make_local(p) for p in self.properties if not p.startswith('-')]
+		else:
+			properties = [p for p in self.properties if p.startswith('.')] # Begin with local properties.
+		def add_properties(n):
+			for p in n.properties:
+				if not p.startswith('.') and p not in properties and _make_local(p) not in properties:
+					properties.append(p)
+		self.walk_ancestors(add_properties)
 		return properties
 
-	def first_ancestor_with_prop(self, property):
+	# Broken.
+	"""def first_ancestor_with_prop(self, property):
 		if property in self.properties:
 			return self
 		queue = [parent for parent in self.parents]
@@ -201,7 +313,7 @@ class Node(object):
 			item, queue = queue[0], queue[1:]
 			if property in item.properties:
 				return item
-		return None
+		return None"""
 
 	def ancestors(self):
 		ancestors = []
@@ -235,6 +347,17 @@ class Node(object):
 		print '\t' * tab + str(self)
 		for child in self.children:
 			child.print_graph(tab=tab+1)
+
+	def get_substitutes(self, properties=None):
+		"""Find a substitute for this node consistent with the given properties."""
+		sub_nodes = []
+		self.walk_ancestors(lambda n: sub_nodes.append(n), properties=['.substitute'])
+		subs = []
+		for sub_node in sub_nodes:
+			for child in sub_node.children:
+				if child != self and child not in subs and all_properties(child, properties):
+					subs.append(child)
+		return subs
 
 def wn_subgraph(synsets, max_depth=-1, index=None, toplevel=True):
 	"""
@@ -295,7 +418,7 @@ def sample_graph():
 
 	return food
 
-def read_graph_files(files, graph=None):
+def read_category_files(files, graph=None):
 	"""
 	Reads food categories from a file either converts them to a graph or adds them
 	to an existing one, based on whether graph is given.  Attempts to convert category
@@ -308,9 +431,29 @@ def read_graph_files(files, graph=None):
 	for file in files:
 		for category, members in loadCategorization(file).iteritems():
 			category, members = category.strip(), [member.strip() for member in members]
+			root = index.pick_one(category) or Node(name=category, index=index)
+			roots.append(root)
+			for member in members:
+				child = index.pick_one(member) or Node(name=member, index=index)
+				child.add_parent(root)
+	return graph if graph else Node(name='<root>', index=index, children=roots)
+
+def read_substitute_files(files, graph=None):
+	"""
+	Reads food substitutions from a file either converts them to a graph or adds them
+	to an existing one, based on whether graph is given.  Attempts to convert category
+	names into nodes based on node names, then lemmas.
+
+	Return either the original graph or a root node for the new graph.
+	"""
+	index = graph.index if graph else Index()
+	roots = []
+	for file in files:
+		for category, members in loadCategorization(file).iteritems():
+			category, members = category.strip(), [member.strip() for member in members]
 			base = index.pick_one(category) or Node(name=category, index=index)
-			name = category + ' alternatives'
-			root = index.pick_one(name) or Node(name=name, index=index, properties=['alternatives'])
+			name = category + ' substitutes'
+			root = index.pick_one(name) or Node(name=name, index=index, properties=['.substitute'])
 			root.add_child(base)
 			roots.append(root)
 			for member in members:
@@ -318,10 +461,33 @@ def read_graph_files(files, graph=None):
 				child.add_parent(root)
 	return graph if graph else Node(name='<root>', index=index, children=roots)
 
-def food_graph(files=FOOD_FILES):
+def read_property_files(files, graph, signal=False):
+	"""
+	Reads food properties from a file and adds those properties to the graph.
+	Attempts to convert category names into nodes based on node names, then lemmas.
+	
+	If signal, print a warning every time a nonexistent node is given properties.
+
+	Return the graph.
+	"""
+	for file in files:
+		for category, properties in loadCategorization(file).iteritems():
+			category, properties = category.strip(), [property.strip() for property in properties]
+			root = graph.pick_one(category)
+			if root:
+				root.add_properties(properties)
+			else:
+				root = Node(name=category, index=graph.index, properties=properties)
+				if signal:
+					sys.stderr.write('Warning: Node %s created with properties %s.\n' % (category, properties))
+	return graph
+
+def food_graph(subs=SUBSTITUTE_FILES, props=PROPERTIES_FILES):
 	root = wn_subgraph([wn.synset('food.n.01'), wn.synset('food.n.02')])
-	if files:
-		read_graph_files(files, graph=root)
+	if subs:
+		read_substitute_files(subs, graph=root)
+	if props:
+		read_property_files(props, root, signal=True)
 	return root
 
-# graph = food_graph(files=FOOD_FILES)
+# graph = food_graph(files=SUBSTITUTE_FILES)

@@ -1,0 +1,3 @@
+meat,+protein,+meat,+animal
+tofu,+protein,-meat,-animal
+egg,+protein,+animal
