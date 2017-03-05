@@ -4,6 +4,8 @@ import nltk
 from bs4 import BeautifulSoup
 from collections import Counter
 from nltk.tokenize import RegexpTokenizer
+from urlparse import urljoin
+import random
 
 UNITS_FILE = "resources/units.txt"
 TOOLS_FILE = "resources/tools.txt"
@@ -167,7 +169,7 @@ def get_structuredsteps(soup, dct):
                 'tools': list(set(tools_list)),
                 'methods' : list(set(method_list)),
                 'cooking time': cooking_time,
-                'ingredients' : ingredient_list
+                'ingredients' : list(set(ingredient_list))
             }
             dct["structuredsteps"].append(d)
 
@@ -424,6 +426,20 @@ def print_recipe(dct):
                         print value
             print '\n'
 
+def fetchRecipeURL(req_recipe):
+    baseURL = 'http://allrecipes.com/search/results/'
+    params = '?wt=' + req_recipe.replace(' ', '%20') + '&sort=re'
+
+    r = urllib.urlopen(baseURL + params).read()
+    soup = BeautifulSoup(r, "html.parser")
+
+    baseSite = 'http://allrecipes.com'
+    links = []
+    for article in soup.find_all('article', attrs={'class':'grid-col--fixed-tiles'}):
+        for link in article('a', attrs={'href':True}):
+            if link['href'].startswith('/recipe'):
+                links.append(urljoin(baseSite, link['href']))
+    return random.choice(links[1:])
 
 
 
