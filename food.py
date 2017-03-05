@@ -5,8 +5,12 @@ from nltk import wordnet
 wn = wordnet.wordnet
 from util import loadCategorization
 
+# Category lists.
+CATEGORY_FILES = []
 # Substitution lists.
-SUBSTITUTE_FILES = ['resources/VegetarianIngredientSubstitutes.csv']
+SUBSTITUTE_FILES = ['resources/VegetarianIngredientSubstitutes.csv', 'resources/fs_substitutes.txt']
+# Synonym lists.
+SYNONYM_FILES = ['resources/fs_synonyms.txt']
 # Properties to attach to various nodes.
 PROPERTIES_FILES = ['resources/food_properties.txt']
 
@@ -134,22 +138,9 @@ class Index(dict):
 class Node(object):
 	def __init__(self, name=None, synset=None, lemmas=None, properties=None,
 						parents=None, children=None, cancels=None, index=None):
-		self.synset = synset				# WordNet synset corresponding to the node.
+		self.synset = synset
 		self.name = name or (self.synset.name() if self.synset else None)
-		self.lemmas = lemmas or [l.name() for l in self.synset.lemmas()] \
-					if self.synset else [self.name]	# Lemmas that may refer to the node.
-		self.properties = []
-		self.parents = []
-		self.children = []
-		self.cancels = []
-		if properties:
-			self.add_properties(properties)
-		if parents:
-			self.add_parents(parents)
-		if children:
-			self.add_children(children)
-		if cancels:
-			self.add_cancels(cancels)
+
 		# Use assigned index or first index found among parents, then children.
 		# If no indexes are found, create one.
 		if index is None:
@@ -158,11 +149,29 @@ class Node(object):
 		self.index = index
 		if self.name:
 			self.index[self.name] = self
-			for lemma in self.lemmas:
-				if lemma not in self.index.lemmas:
-					self.index.lemmas[lemma] = []
-				self.index.lemmas[lemma].append(self)
 
+		self.lemmas = []
+		self.properties = []
+		self.parents = []
+		self.children = []
+		self.cancels = []
+	
+		if lemmas:
+			self.add_lemmas(lemmas)
+		elif self.synset:
+			self.add_lemmas([l.name() for l in self.synset.lemmas()])
+		else:
+			self.add_lemma(self.name)
+	
+		if properties:
+			self.add_properties(properties)
+		if parents:
+			self.add_parents(parents)
+		if children:
+			self.add_children(children)
+		if cancels:
+			self.add_cancels(cancels)
+	
 	def __str__(self):
 		return '<Node %s>' % self.name
 
@@ -183,6 +192,18 @@ class Node(object):
 
 	def pick_one(self, query=None, properties=None):
 		return self.index.pick_one(query=query, properties=properties)
+
+	def add_lemma(self, lemma):
+		if lemma not in self.lemmas:
+			self.lemmas.append(lemma)
+		if lemma not in self.index.lemmas:
+			self.index.lemmas[lemma] = []
+		if self not in self.index.lemmas[lemma]:
+			self.index.lemmas[lemma].append(self)
+
+	def add_lemmas(self, lemmas):
+		for lemma in lemmas:
+			self.add_lemma(lemma)
 
 	def add_property(self, property):
 		if property not in self.properties:
@@ -464,7 +485,7 @@ def read_substitute_files(files, graph=None):
 def read_property_files(files, graph, signal=False):
 	"""
 	Reads food properties from a file and adds those properties to the graph.
-	Attempts to convert category names into nodes based on node names, then lemmas.
+	Attempts to convert food names into nodes based on node names, then lemmas.
 	
 	If signal, print a warning every time a nonexistent node is given properties.
 
@@ -482,12 +503,36 @@ def read_property_files(files, graph, signal=False):
 					sys.stderr.write('Warning: Node %s created with properties %s.\n' % (category, properties))
 	return graph
 
-def food_graph(subs=SUBSTITUTE_FILES, props=PROPERTIES_FILES):
+def read_synonym_files(files, graph, signal=False):
+	"""
+	Reads food synonyms from a file and adds those lemmas to the graph.
+	Attempts to convert food names into nodes based on node names, then lemmas.
+	
+	If signal, print a warning every time a nonexistent node is given properties.
+
+	Return the graph.
+	"""
+	for file in files:
+		for category, synonyms in loadCategorization(file).iteritems():
+			category, synonyms = category.strip(), [synonym.strip() for synonym in synonyms]
+			root = graph.pick_one(category)
+			if root:
+				root.add_lemmas(synonyms)
+			else:
+				lemmas = [category] + synonyms if category not in synonyms else synonyms
+				root = Node(name=category, index=graph.index, lemmas=lemmas)
+				if signal:
+					sys.stderr.write('Warning: Node %s created with lemmas %s.\n' % (category, lemmas))
+	return graph
+
+def food_graph(cats=CATEGORY_FILES, subs=SUBSTITUTE_FILES, props=PROPERTIES_FILES, syns=SYNONYM_FILES):
 	root = wn_subgraph([wn.synset('food.n.01'), wn.synset('food.n.02')])
+	if cats:
+		read_category_files(cats, graph=root)
 	if subs:
 		read_substitute_files(subs, graph=root)
 	if props:
 		read_property_files(props, root, signal=True)
+	if syns:
+		read_synonym_files(syns, root, signal=True)
 	return root
-
-# graph = food_graph(files=SUBSTITUTE_FILES)
