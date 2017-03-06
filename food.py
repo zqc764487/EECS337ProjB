@@ -310,7 +310,7 @@ class Node(object):
 		# There's probably a quicker way to do this with walk_ancestors and test=True.
 		# However, taking +prop and -prop into account makes this nontrivial.
 		# Therefore let's just use get_properties.
-		return check_property(property, self.get_properties())
+		return property_match(property, self.get_properties())
 
 	def get_properties(self, local=False):
 		# If local, pretend all positive direct properties are local.
