@@ -1,0 +1,326 @@
+butter: 201
+salt: 159
+flour: 138
+sugar: 136
+oil: 120
+water: 86
+onion: 80
+eggs: 77
+cream: 72
+milk: 64
+wine: 64
+vanilla extract: 60
+salt and pepper: 54
+ground pepper: 52
+cloves garlic: 52
+cheese: 49
+parsley: 46
+onions: 45
+egg yolks: 43
+: 42
+thyme: 41
+salt and ground pepper: 31
+confectioners' sugar: 30
+egg: 27
+clove garlic: 27
+dijon mustard: 24
+bread: 23
+bay leaf: 23
+bacon: 22
+ground cinnamon: 22
+whipping cream: 22
+lemon juice: 21
+chicken broth: 19
+carrots: 19
+beef broth: 17
+mushrooms: 17
+ham: 16
+egg whites: 16
+bell pepper: 15
+egg yolk: 15
+paprika: 15
+vinegar: 14
+ground nutmeg: 14
+honey: 14
+wine vinegar: 14
+oregano: 14
+basil: 13
+ounce beef broth: 13
+herbes de provence: 12
+tarragon: 12
+grated cheese: 12
+cornstarch: 12
+shallot: 12
+zucchini: 12
+shallots: 12
+powder: 12
+worcestershire sauce: 12
+pepper: 12
+lemon: 12
+cayenne pepper: 11
+yeast: 11
+potatoes: 11
+bread flour: 11
+ounce squares chocolate: 11
+baking powder: 11
+cheddar cheese: 11
+confectioners' sugar for dusting: 10
+sprigs thyme: 10
+minced garlic: 10
+shredded gruyere cheese: 9
+salt and freshly ground pepper: 9
+baguette: 9
+mayonnaise: 9
+sea salt: 8
+dried rosemary: 8
+stock: 8
+tomatoes: 8
+juice: 8
+bread crumbs: 8
+thyme leaves: 8
+margarine: 8
+freshly pepper: 8
+sprigs parsley: 8
+bay leaves: 7
+cocoa powder: 7
+tomato paste: 7
+kosher salt: 7
+ounce condensed cream of chicken soup: 7
+walnuts: 7
+shortening: 7
+butter or margarine: 7
+gruyere cheese: 7
+ounce diced tomatoes: 7
+package cream cheese: 6
+water 110 degrees f/45 degrees c: 6
+wheat flour: 6
+orange juice: 6
+ground cloves: 6
+medium onion: 6
+half-and-half: 6
+vanilla bean: 5
+mussels: 5
+egg white: 5
+cloves: 5
+lemon zest: 5
+sherry: 5
+inch pie crust: 5
+provolone cheese: 5
+oil for frying: 5
+chives: 5
+ground pork: 5
+brown sugar: 5
+cornmeal: 5
+virgin oil: 5
+mustard: 5
+capers: 5
+chicken stock: 5
+mozzarella cheese: 4
+boiling water: 4
+seasoning: 4
+stalks: 4
+dry sherry: 4
+boneless: 4
+pecans: 4
+wine optional: 4
+sliced mushrooms: 4
+rosemary: 4
+peppercorns: 4
+goat cheese: 4
+roma plum tomatoes: 4
+optional: 4
+mustard powder: 4
+chicken breast halves: 4
+ounce mushrooms: 4
+broth: 4
+ounce chicken broth: 4
+bananas: 4
+ounce skinless: 4
+almonds: 4
+buttermilk: 4
+freshly ground pepper: 4
+package puff pastry: 4
+lime juice: 4
+ground allspice: 4
+sesame seeds: 4
+package vanilla pudding mix: 3
+ounce condensed cream of mushroom soup: 3
+sausage: 3
+skim milk: 3
+creme fraiche: 3
+chocolate: 3
+pork tenderloin: 3
+medium tomatoes: 3
+tomato: 3
+cold: 3
+ketchup: 3
+cherry tomatoes: 3
+cooking spray: 3
+finely ground almonds: 3
+garlic: 3
+russet potatoes: 3
+ounce beef consomme: 3
+wheat bread: 3
+burgundy wine: 3
+stalk celery: 3
+button mushrooms: 3
+ground ginger: 3
+cashews: 3
+romano cheese: 3
+rice: 3
+chips: 3
+skinless: 3
+cream of tartar: 3
+grated gruyere cheese: 3
+sprigs fresh rosemary: 3
+dill weed: 3
+eggplant: 3
+marjoram: 3
+cream cheese: 3
+squash: 3
+savory: 3
+cooking sherry: 3
+malt powder: 3
+port wine: 3
+confectioners' sugar for decoration: 3
+rum: 3
+sauce:: 3
+orange peel: 3
+beans: 3
+leeks: 3
+ground almonds: 3
+raisins: 3
+strawberries: 3
+sea scallops: 3
+orange liqueur marnier: 3
+sherry vinegar: 3
+curry powder: 3
+brandy: 3
+tarragon vinegar: 3
+soy sauce: 3
+freshly cracked pepper: 2
+blueberries: 2
+onion powder: 2
+tomatoes - peeled: 2
+package yeast: 2
+jack cheese: 2
+saffron threads: 2
+apple cider: 2
+croutons: 2
+raspberries: 2
+chocolate chips: 2
+package mushrooms: 2
+balsamic vinegar: 2
+pears: 2
+thinly ham: 2
+starter: 2
+ground mustard: 2
+carrot: 2
+- peeled: 2
+bittersweet chocolate: 2
+pastry for a inch crust pie: 2
+spears asparagus: 2
+almond extract: 2
+ounce wheel brie cheese: 2
+beef stock: 2
+ounce beef gravy: 2
+smith apples - peeled: 2
+pound loaf bread: 2
+sherry wine: 2
+instant yeast: 2
+cocoa: 2
+light cream: 2
+fennel seed: 2
+chocolate hazelnut spread: 2
+kosher salt and cracked pepper: 2
+ounce beans: 2
+apricot preserves: 2
+tarragon leaves: 2
+ounce packages yeast: 2
+ounce cannellini beans: 2
+chopped garlic: 2
+orange zest: 2
+orange juice concentrate: 2
+ground beef: 2
+cider vinegar: 2
+sugar for decoration: 2
+helix snails: 2
+clove: 2
+juniper berries: 2
+bay scallops: 2
+plain crumbs: 2
+apple brandy: 2
+kosher salt and freshly ground pepper: 2
+chicken: 2
+inch thick bread: 2
+whole or 2% milk: 2
+gouda cheese: 2
+apples - peeled: 2
+celery: 2
+ounce salmon fillets: 2
+package peas: 2
+corn oil: 2
+chicken bouillon granules: 2
+pumpkin puree: 2
+pie crust: 2
+beans - rinsed: 2
+nutmeg: 2
+hazelnut liqueur: 2
+sprigs oregano: 2
+chicken breasts: 2
+sprigs tarragon: 2
+saffron powder: 2
+fennel seeds: 2
+whole: 2
+medium potatoes: 2
+water optional: 2
+inch dish pie crust: 2
+beef: 2
+stalks celery: 2
+pastry:: 2
+vanilla: 2
+freshly nutmeg: 2
+ounce round brie cheese: 2
+vanilla beans: 2
+ground savory: 2
+water 110 degrees f: 2
+cilantro: 2
+cognac: 2
+ground mace: 2
+dried tarragon: 2
+cremini mushrooms: 2
+maple syrup: 2
+package bread stuffing mix: 2
+bittersweet chocolate bar: 2
+mascarpone cheese: 2
+pitted kalamata olives: 2
+pork tenderloins: 2
+baking soda: 2
+filling:: 2
+semisweet chocolate chips: 2
+zest: 2
+peas: 2
+ounce square chocolate: 2
+canola oil: 2
+minced thyme: 2
+shrimp: 2
+caviar: 2
+pepper sauce: 2
+biscuit mix e.g. bisquick: 2
+cube beef bouillon: 2
+ounce sliced mushrooms: 2
+package button mushrooms: 2
+potato: 2
+dill: 2
+package chocolate pudding mix: 2
+peach: 2
+hazelnuts: 2
+superfine castor sugar: 2
+medium potato: 2
+warm milk: 1
+fenugreek seeds: 1
+sugar for dusting: 1
+ounce canned tomatoes: 1
+confectioners' sugar optional: 1
+curds: 1
+flour for coating: 1
