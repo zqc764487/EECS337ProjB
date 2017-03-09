@@ -116,6 +116,11 @@ def freq_ingredient(read_file, write_file):
 
 
 
-freq_ingredient(RECIPE_INDIAN_FOOD, FREQ_FILE_I)
-freq_ingredient(RECIPE_GERMAN_FOOD, FREQ_FILE_G)
-freq_ingredient(RECIPE_FRENCH_FOOD, FREQ_FILE_F)
+def read_freq_file(file=FREQ_FILE_I):
+	d = {}
+	with open(file) as fin:
+		for line in fin:
+			(key, val) = line.split(': ')
+			val = re.sub('\n', '', val)
+			d[str(key)] = int(val)
+	return d
