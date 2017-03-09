@@ -18,7 +18,6 @@ PASSWORD = 'default'
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-
 # Routes
 @app.route('/')
 def show_vanilla_home():
@@ -37,6 +36,7 @@ def internal_error(error):
 @app.errorhandler(404)
 def not_found(error):
   return "404 Error: Page not found", 404
+
 
 if __name__ == '__main__':
     #app.run(host=os.getenv('IP', '0.0.0.0'),port=int(os.getenv('PORT', 8080)))

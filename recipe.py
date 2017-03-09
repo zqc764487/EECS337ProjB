@@ -6,6 +6,7 @@ from collections import Counter
 from nltk.tokenize import RegexpTokenizer
 from urlparse import urljoin
 import random
+from food import *
 
 UNITS_FILE = "resources/units.txt"
 TOOLS_FILE = "resources/tools.txt"
@@ -54,6 +55,7 @@ unit_abbreviation = {
     'lb':'pound'
 }
 
+graph = food_graph()
 
 def fetch_recipe(url):
     '''
@@ -442,7 +444,16 @@ def fetchRecipeURL(req_recipe):
     return random.choice(links[1:])
 
 
-
+def makeVegetarian(recipe):
+    ingredients = [x['name'] for x in recipe['ingredients']]
+    print ingredients
+    substitutes = {}
+    for ingredient in ingredients:
+        node = graph.pick_one(ingredient)
+        if node:
+            if node.has_property('meat'):
+                substitutes[ingredient] = node.get_substitutes(properties = ['-meat'])
+    return substitutes
 
 #def main():
     #read_file()
