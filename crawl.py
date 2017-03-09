@@ -116,8 +116,6 @@ def freq_ingredient(read_file, write_file):
 
 
 
-
-
 freq_ingredient(RECIPE_INDIAN_FOOD, FREQ_FILE_I)
 freq_ingredient(RECIPE_GERMAN_FOOD, FREQ_FILE_G)
 freq_ingredient(RECIPE_FRENCH_FOOD, FREQ_FILE_F)
