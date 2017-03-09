@@ -213,7 +213,7 @@ def parse_ingredient(ingredient):
     for index, word in enumerate(ingLst):
         if word in synonyms:
             word = unit_abbreviation[word]
-        if word[0].isnumeric():
+        if word[0].isnumeric() and re.search(r'^\d\/\d+$', word):
             if quantity == '':
                 quantity = float(convert(word))
                 quantityR.append(word)
@@ -221,6 +221,13 @@ def parse_ingredient(ingredient):
                 quantity = float(quantity) + float(convert(word))
                 quantityR.append(word)
             continue
+        elif word.isnumeric():
+            if quantity == '':
+                quantity = float(convert(word))
+                quantityR.append(word)
+            else:
+                quantity = float(quantity) + float(convert(word))
+                quantityR.append(word)
         elif word in units:
             if measurement == '':
                 measurementR.append(word)
@@ -379,17 +386,26 @@ def get_methods(soup, dct):
             elif y[:-1]+ "ing" == x.lower():
                 cnt[y]+=1
                 cnt[y[:-1]+ "ing"] +=1
+            elif y == x.lower():
+                cnt[y] += 1
 
     max_list = []
-    max_cnt = cnt.most_common(1)[0][1]
+    max_cnt = 1
+    if len(cnt) > 0:
+        max_cnt = cnt.most_common(1)[0][1]
+    else:
+        max_cnt =0
+    
 
-    for x,v in cnt.most_common():
-        if v== max_cnt:
+    for x, v in cnt.most_common():
+        if v == max_cnt:
             max_list.append(x)
 
     max_list.sort()
-
-    dct["primary cooking method"] = max_list[0]
+    if max_list:
+        dct["primary cooking method"] = max_list[0]
+    else:
+        dct["primary cooking method"] = None
 
     for x in cnt.most_common():
         dct["cooking methods"].append(x[0])
@@ -444,6 +460,7 @@ def fetchRecipeURL(req_recipe):
     return random.choice(links[1:])
 
 
+<<<<<<< HEAD
 def makeVegetarian(recipe):
     ingredients = [x['name'] for x in recipe['ingredients']]
     print ingredients
@@ -460,7 +477,17 @@ def makeVegetarian(recipe):
     #recipe = fetch_recipe('http://allrecipes.com/recipe/87845/manicotti-italian-casserole/?clickId=right%20rail%201&internalSource=rr_feed_recipe&referringId=87845&referringContentType=recipe')
     #print '\n'
     #return
+=======
+
+'''
+def main():
+    read_file()
+    recipe = fetch_recipe('http://allrecipes.com/recipe/143113/magpies-easy-falafel-cakes/')
+    print '\n'
+    return
+>>>>>>> 1b13f63209fad1110011487626e73d02d0b44e90
 
 
-#if __name__ == '__main__':
- #   main()
+if __name__ == '__main__':
+    main()
+'''

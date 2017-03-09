@@ -1,0 +1,600 @@
+oil: 137
+salt: 114
+water: 113
+onion: 91
+cloves garlic: 70
+ground cumin: 59
+ground pepper: 50
+sugar: 47
+butter: 46
+ground cinnamon: 38
+onions: 36
+ground turmeric: 35
+: 34
+ground ginger: 30
+carrots: 29
+milk: 28
+eggs: 28
+bell pepper: 27
+tomatoes: 27
+flour: 26
+ground coriander: 26
+cayenne pepper: 25
+lemon juice: 25
+parsley: 25
+salt and ground pepper: 24
+salt and pepper: 24
+paprika: 24
+potatoes: 22
+raisins: 18
+lemon: 18
+cilantro: 17
+peanut butter: 16
+ounce garbanzo beans: 16
+curry powder: 16
+pepper: 15
+tomato paste: 14
+ground cardamom: 13
+rice: 13
+oil for frying: 13
+ground cloves: 13
+ground cayenne pepper: 12
+honey: 12
+ounce tomato paste: 12
+ground beef: 12
+zucchini: 12
+chicken broth: 12
+olives: 12
+vinegar: 11
+clove garlic: 11
+bay leaves: 10
+ground nutmeg: 10
+harissa: 10
+powder: 10
+ounce diced tomatoes: 10
+baking powder: 10
+apricots: 10
+carrot: 9
+egg: 9
+pepper flakes: 9
+minced garlic: 9
+bell peppers: 8
+vanilla extract: 8
+cloves: 8
+bay leaf: 8
+ground allspice: 8
+almonds: 8
+potato: 8
+couscous: 7
+juice: 7
+stew meat: 7
+lentils: 7
+chile pepper: 7
+head cabbage: 6
+kosher salt: 6
+tomato: 6
+wine vinegar: 6
+cornstarch: 6
+spinach: 6
+coconut: 6
+ounce chickpeas: 6
+cumin seeds: 6
+broth: 6
+cream: 6
+medium onions: 6
+ginger root: 6
+sea salt: 5
+ounce tomatoes: 5
+stock: 5
+plain yogurt: 5
+chicken: 5
+cumin: 5
+worcestershire sauce: 5
+ginger: 5
+cake flour: 5
+eggplant: 5
+chile peppers: 5
+margarine: 5
+canola oil: 5
+soy sauce: 5
+onion powder: 4
+cubes chicken bouillon: 4
+chicken thighs: 4
+beef stock: 4
+wine: 4
+cayenne pepper optional: 4
+chopped garlic: 4
+water cover: 4
+mint: 4
+chutney: 4
+roma plum tomatoes: 4
+orange juice: 4
+stalks celery: 4
+freshly pepper: 4
+baking soda: 4
+saffron threads: 4
+beans: 4
+medium onion: 4
+ground coriander seed: 4
+peas: 4
+ground lamb: 4
+cinnamon stick: 3
+lime: 3
+lemons: 3
+package cottage cheese: 3
+ounce chopped tomatoes: 3
+yeast: 3
+peanuts: 3
+sauce: 3
+ounce vegetable broth: 3
+bread: 3
+apricot jam: 3
+garam masala: 3
+ounce crushed tomatoes: 3
+pine nuts: 3
+finely onion: 3
+orange flower water: 3
+peppercorns: 3
+semolina flour: 3
+coconut milk: 3
+celery: 3
+chicken bouillon granules: 3
+collard greens: 3
+bread crumbs: 3
+ounce tomato sauce: 3
+mint leaves: 3
+water optional: 3
+oregano: 3
+ground paprika: 3
+tomato puree: 3
+berbere seasoning: 3
+ounce chicken broth: 3
+crust:: 3
+minced ginger root: 3
+anise seed: 3
+filling:: 3
+sauce:: 3
+squash: 3
+sesame seeds: 3
+ounce canned tomatoes: 2
+blanched almonds: 2
+caraway seeds: 2
+serrano pepper: 2
+boiling water: 2
+chickpeas: 2
+chili powder: 2
+grated ginger: 2
+stalks: 2
+cinnamon sugar: 2
+cucumbers: 2
+cinnamon: 2
+ounce broth: 2
+2 pound chicken: 2
+tahini: 2
+dry couscous: 2
+lamb meat: 2
+ounce diced tomatoes juice: 2
+yams: 2
+boneless: 2
+orange: 2
+prunes: 2
+ounce kidney beans: 2
+thyme: 2
+crunchy peanut butter: 2
+rosemary: 2
+sesame seeds optional: 2
+sprigs cilantro: 2
+cheese: 2
+habanero pepper: 2
+skinless: 2
+beef stew meat: 2
+chile powder: 2
+stalk celery: 2
+cornstarch optional: 2
+ounce fava beans: 2
+split peas: 2
+cornmeal: 2
+ounce tuna packed in oil: 2
+medium potatoes: 2
+chicken breast halves: 2
+beef: 2
+habanero peppers: 2
+optional: 2
+ounce container plain yogurt: 2
+shortening: 2
+roma plum tomato: 2
+ras el hanout: 2
+egg yolks: 2
+thyme leaves: 2
+ground fenugreek: 2
+wedges: 2
+coriander seeds: 2
+mayonnaise: 2
+long grain rice: 2
+zucchinis: 2
+okra: 2
+finely cabbage: 2
+caraway seed: 2
+mushrooms: 2
+brown sugar: 2
+ounce chickpeas beans: 2
+brown lentils: 2
+cube beef bouillon: 2
+package puff pastry: 2
+hazelnuts: 2
+saffron: 2
+tomato sauce: 2
+whipping cream: 2
+leek: 2
+lime juice: 2
+finely kale: 1
+dijon mustard: 1
+bell peppers - cored: 1
+fava beans: 1
+ounce organic beef broth: 1
+fenugreek seeds: 1
+sweet potatoes: 1
+vanilla powder: 1
+meat chevon: 1
+fillets flounder: 1
+turnips: 1
+and sweet potatoes: 1
+kibbeh butter: 1
+package yeast: 1
+sunflower seed oil: 1
+package cream cheese: 1
+finely cucumber: 1
+parsley leaves: 1
+chayote squash: 1
+tagine:: 1
+limes: 1
+topping:: 1
+seasoning blend such mrs. dash: 1
+ounce onions: 1
+ground dried turmeric: 1
+seasoning: 1
+broth or stock: 1
+bacon: 1
+package beans and carrots: 1
+grated zest of one orange: 1
+water 115 degrees f/46 degrees c: 1
+tarragon: 1
+fillet: 1
+dukka:: 1
+peanut oil: 1
+canola: 1
+package mushrooms: 1
+reduced-sodium butternut squash soup: 1
+ounce chopped canned tomatoes: 1
+pasta: 1
+boiling chicken stock: 1
+package spinach: 1
+ground cayenne: 1
+chestnut mushrooms: 1
+cloves cloves garlic: 1
+chervil: 1
+package puff pastry sheets: 1
+apple juice: 1
+butternut squash: 1
+peeled and chopped turnip: 1
+cubes beef bouillon: 1
+apricot halves: 1
+egg white: 1
+leaves mint: 1
+ras hanout: 1
+superfine sugar: 1
+cooking oil spray: 1
+liquid smoke flavoring: 1
+chopped chile peppers: 1
+wedge: 1
+package spring roll wrappers: 1
+pound butternut squash - peeled: 1
+pieces: 1
+ghee butter: 1
+coarsely parsley optional: 1
+long rice: 1
+lamb: 1
+salt and freshly ground pepper: 1
+package onion soup mix: 1
+pitted dates: 1
+paprika optional: 1
+harissa pepper paste: 1
+chunky peanut butter: 1
+cubes bouillon: 1
+butternut squash - peeled: 1
+curry powder optional: 1
+parsnips: 1
+chicken wings: 1
+cardamom: 1
+medium tomatoes: 1
+potato flakes: 1
+cabbage: 1
+bread flour: 1
+water 110 degrees f/45 degrees c: 1
+finely ground peanuts: 1
+ground walnuts: 1
+finely chopped onion: 1
+chicken bouillon cubes: 1
+dough: 1
+tahini sauce: 1
+tomatoes packed in oil: 1
+sweetened: 1
+skinless chicken thighs: 1
+sugar syrup: 1
+pecans: 1
+rosewater: 1
+ethiopian berbere seasoning: 1
+oranges: 1
+fennel bulb: 1
+cardamom seeds: 1
+margarine or butter: 1
+jalapeno peppers: 1
+boneless lamb shoulder: 1
+filling: 1
+freshly grated cheese: 1
+head cauliflower: 1
+parmesan cheese: 1
+ground thyme: 1
+sweet paprika: 1
+cooking spray: 1
+pound skinless: 1
+wheat couscous: 1
+cilantro leaves and thinner stems: 1
+gallon milk: 1
+pomegranate seeds: 1
+kabob skewers: 1
+package baby spinach: 1
+ounce homemade chicken broth or low-sodium canned broth: 1
+bunch cilantro: 1
+walnuts: 1
+leaves basil optional: 1
+blanched almond halves: 1
+beef bouillon powder: 1
+steak: 1
+dashes ground cinnamon: 1
+ounce sliced olives: 1
+ounce cannellini beans: 1
+egg yolk: 1
+lemon zest: 1
+round roast: 1
+orange zest: 1
+banana squash: 1
+rice short-grain rice: 1
+chopped: 1
+medium sugar pumpkin: 1
+slivered almonds: 1
+dried crumbs: 1
+minced ginger: 1
+ounce sliced beans: 1
+cherry tomatoes: 1
+thinly bell peppers: 1
+spice mixture:: 1
+dried chile pepper: 1
+roma tomato: 1
+beef stock concentrate: 1
+bird's eye chiles: 1
+broccoli: 1
+coarsely coriander seed: 1
+nuts: 1
+beef round steak: 1
+celery salt: 1
+cornstarch dissolved in: 1
+cassava manioc root: 1
+packet oxtail soup mix: 1
+fresh dill: 1
+vermicelli: 1
+asafoetida powder: 1
+mutton chops: 1
+beef chuck: 1
+ounce beef consomme: 1
+quick-cooking couscous: 1
+anaheim: 1
+lamb or mutton breast chops: 1
+soul food seasoning: 1
+lamb stew meat: 1
+cooking oil: 1
+package phyllo dough: 1
+mild chile peppers: 1
+bunches collard greens: 1
+roma tomatoes: 1
+ounce unsweetened coconut milk: 1
+pudding:: 1
+package macaroni: 1
+package okra: 1
+ounce tilapia fillets: 1
+shallot: 1
+sherry: 1
+minced mint leaves: 1
+coarsely chopped garlic: 1
+drops oil: 1
+seedless raisins: 1
+finely ground millet flour: 1
+turmeric: 1
+orzo pasta: 1
+cube chicken bouillon maggi: 1
+onion such vidalia: 1
+peaches: 1
+ounce peas: 1
+bouillon granules such knorr: 1
+kidney beans: 1
+beluga lentils: 1
+minced ginger optional: 1
+apples - peeled: 1
+pistachio nuts: 1
+finely ground freekeh: 1
+finely pineapple: 1
+stew vegetables:: 1
+corn oil: 1
+chicken giblets: 1
+goat cheese: 1
+heads cabbage: 1
+10.5 chicken broth: 1
+cardamom pods: 1
+up chicken pieces: 1
+chips: 1
+yellow lentils: 1
+orange flower water optional: 1
+chunky salsa: 1
+tahini sesame seed paste: 1
+for the noodles:: 1
+ounce garbanzo: 1
+agave nectar: 1
+ounce stewed tomatoes: 1
+ounce tomatoes chile peppers: 1
+cold brewed coffee: 1
+chicken breasts: 1
+wheat bread: 1
+couscous:: 1
+cauliflower: 1
+cilantro leaves: 1
+basil leaves: 1
+ginger root optional: 1
+adobo sauce from peppers: 1
+ground mexico chiles: 1
+ounce mackerel in tomato sauce: 1
+for the chile paste:: 1
+baby portabella mushrooms: 1
+green bananas: 1
+vinegar optional: 1
+ounce sardines: 1
+wheat berries: 1
+himalayan pink salt: 1
+pearl israeli couscous: 1
+dates: 1
+fennel seeds: 1
+garbanzo beans: 1
+cod: 1
+paste:: 1
+apricot jelly: 1
+chicken pieces: 1
+sweet: 1
+fillets: 1
+farina cereal: 1
+chicken drumsticks: 1
+mustard powder: 1
+ras el hanout spice mix: 1
+beet: 1
+freshly grated ginger: 1
+ounce low sodium garbanzo beans: 1
+ounce beef broth: 1
+or spicy sausage: 1
+chicken bouillon powder: 1
+milk powder: 1
+bunches spinach: 1
+pimento sauce: 1
+green lentils: 1
+vanilla: 1
+drops food coloring: 1
+turmeric optional: 1
+elbow macaroni: 1
+chili powder optional: 1
+stew beef: 1
+butter or margarine: 1
+gari cassava flour: 1
+chicken:: 1
+pieces bread: 1
+spice mix:: 1
+catfish: 1
+pound lamb shanks: 1
+garlic cloves: 1
+coarse ground pepper: 1
+confectioners' sugar: 1
+chopped peanuts optional: 1
+rack of lamb: 1
+plum tomatoes: 1
+chickpea flour: 1
+flakes: 1
+puree: 1
+berbere:: 1
+coarsely apricots: 1
+dried chile peppers: 1
+kale: 1
+medium eggplant: 1
+breast meat: 1
+ounce peanut butter: 1
+roasted: 1
+almonds optional: 1
+cookie crumbs: 1
+package lentils: 1
+allspice berries: 1
+cranberries: 1
+ounce red kidney beans: 1
+ounce chopped tomatoes juice: 1
+coriander: 1
+semolina: 1
+bottoms: 1
+bone-in chicken thighs: 1
+ounce box couscous: 1
+chicken bouillon cube: 1
+meat: 1
+splash of milk: 1
+ounce whole tomatoes: 1
+cube beef bouillon cube: 1
+confectioners' sugar for dusting optional: 1
+finely cilantro: 1
+turkey legs: 1
+sugar beans: 1
+castor sugar or superfine sugar: 1
+bamboo skewers: 1
+cinnamon sticks: 1
+leaf: 1
+package hair pasta: 1
+pearl onions: 1
+pepper flakes optional: 1
+zest: 1
+onion salt: 1
+cube shrimp bouillon maggi optional: 1
+ras el hanout optional: 1
+stew: 1
+container ricotta cheese: 1
+finely almonds optional: 1
+paste: 1
+sheets phyllo dough: 1
+shrimp: 1
+ounce organic chicken broth: 1
+squeeze lemon juice: 1
+pepper in adobo sauce: 1
+powder optional: 1
+tofu: 1
+flour optional: 1
+fluid ounce chicken broth: 1
+.25 ounce envelopes yeast: 1
+half-and-half: 1
+allspice: 1
+tahini paste: 1
+sprigs parsley: 1
+dry lentils: 1
+shiitake mushrooms: 1
+peeled and chopped carrot: 1
+ounce vegetable stock: 1
+sea bass: 1
+collard greens - rinsed: 1
+almond flour: 1
+honey optional: 1
+chipotle chili powder: 1
+pears - peeled: 1
+beets: 1
+freshly ground pepper: 1
+peas cowpeas: 1
+ounce corn: 1
+package graham crackers: 1
+sea salt optional: 1
+virgin oil: 1
+kalamata olives: 1
+parsley leaves and thinner stems: 1
+coarsely pepper: 1
+ounce quartered artichoke hearts: 1
+toast bread: 1
+pumpkin seeds: 1
+quality milk chocolate: 1
+imitation cream: 1
+brandy: 1
+ground optional: 1
+capers: 1
+pound roasting chicken: 1
+package ditalini pasta: 1
+radishes: 1
+fresh ginger root: 1
+head garlic: 1
+amarula liqueur: 1
+palm oil: 1

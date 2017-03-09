@@ -1,0 +1,596 @@
+sugar: 209
+flour: 176
+salt: 150
+butter: 128
+water: 106
+eggs: 103
+onion: 72
+milk: 67
+ground cinnamon: 55
+oil: 52
+baking powder: 46
+egg: 42
+ground pepper: 42
+vanilla extract: 40
+confectioners' sugar: 36
+baking soda: 36
+cream: 32
+bacon: 28
+potatoes: 26
+ground nutmeg: 25
+ground cloves: 25
+salt and pepper: 25
+parsley: 25
+: 22
+honey: 22
+onions: 22
+vinegar: 21
+shortening: 18
+salt and ground pepper: 17
+raisins: 16
+paprika: 16
+ground beef: 15
+juice: 15
+egg yolks: 15
+cornstarch: 14
+ounce sauerkraut: 13
+lemon zest: 13
+almonds: 13
+carrots: 12
+zest: 12
+ground allspice: 12
+sauerkraut: 11
+cloves: 11
+wine vinegar: 11
+lemon juice: 11
+ground ginger: 11
+egg whites: 11
+mustard: 11
+caraway seeds: 10
+head cabbage: 10
+cocoa powder: 10
+wine: 10
+cider vinegar: 10
+apples - peeled: 10
+anise seed: 10
+walnuts: 9
+bread crumbs: 9
+whipping cream: 9
+pepper: 9
+bay leaves: 8
+yeast: 8
+almond extract: 8
+cheese: 8
+molasses: 8
+margarine: 8
+cheddar cheese: 8
+cloves garlic: 8
+ground cardamom: 7
+powder: 7
+chicken broth: 7
+ground almonds: 7
+package yeast: 6
+cabbage: 6
+peppercorns: 6
+celery: 6
+fluid ounce or bottle beer: 6
+orange juice: 6
+bay leaf: 6
+buttermilk: 6
+oil for frying: 6
+rum: 6
+mayonnaise: 6
+dijon mustard: 5
+onion powder: 5
+blanched almonds: 5
+apple: 5
+clove garlic: 5
+egg yolk: 5
+caraway seed: 5
+freshly pepper: 5
+package egg noodles: 5
+lemon: 5
+minced garlic: 5
+bell pepper: 4
+anise extract: 4
+egg white: 4
+kosher salt: 4
+carrot: 4
+water 110 degrees f/45 degrees c: 4
+roast: 4
+ounce packages yeast: 4
+orange zest: 4
+apples: 4
+apple cider vinegar: 4
+pork chops: 4
+currants: 4
+worcestershire sauce: 4
+cake flour: 4
+marjoram: 4
+mustard powder: 4
+stalks celery: 4
+thyme: 4
+cherries: 4
+canola oil: 4
+celery seed: 4
+brown sugar: 4
+kielbasa: 4
+ounce tomato sauce: 4
+curry powder: 4
+bell peppers: 3
+mozzarella cheese: 3
+boiling water: 3
+sausage: 3
+applesauce: 3
+stone ground mustard: 3
+apple juice: 3
+orange liqueur: 3
+rice: 3
+crumbs: 3
+ounce packages cream cheese: 3
+pecans: 3
+prunes: 3
+stock: 3
+cookies: 3
+russet potatoes: 3
+medium head cabbage: 3
+coconut: 3
+bread flour: 3
+package sauerkraut: 3
+juniper berries: 3
+dough:: 3
+bacon drippings: 3
+cream of tartar: 3
+dill weed: 3
+medium potatoes: 3
+beer: 3
+basil: 3
+butter or margarine: 3
+coffee: 3
+ground cumin: 3
+candied citron: 3
+baking potatoes: 3
+filling:: 3
+seeds: 3
+ground walnuts: 3
+citron: 3
+medium onion: 3
+cube beef bouillon: 3
+dill: 3
+warm milk: 2
+cayenne pepper: 2
+cinnamon stick: 2
+seasoning: 2
+all purpose flour: 2
+celery root: 2
+cucumbers: 2
+chili sauce: 2
+lukewarm water: 2
+gallon water: 2
+.25 ounce packages yeast: 2
+potato flakes: 2
+beef stock: 2
+finely almonds: 2
+drops oil: 2
+dill pickles: 2
+orange: 2
+ounce tomato paste: 2
+package cheddar cheese: 2
+sweet paprika: 2
+fennel seed: 2
+ounce crushed tomatoes: 2
+pork loin roast: 2
+apricot preserves: 2
+dark molasses: 2
+nuts: 2
+apple - peeled: 2
+dogs: 2
+cooking oil: 2
+ground hazelnuts: 2
+soup:: 2
+wheat flour: 2
+rye flour: 2
+stalk celery: 2
+ounce squares chocolate: 2
+coarse sea salt: 2
+ounce pitted cherries: 2
+gingersnaps: 2
+citrus peel: 2
+plums: 2
+chicken bouillon granules: 2
+chips: 2
+freshly ground pepper: 2
+peel: 2
+nutmeg: 2
+package kielbasa sausage: 2
+kirschwasser: 2
+cookies:: 2
+oregano: 2
+dill pickle: 2
+freshly nutmeg: 2
+broth: 2
+apricots: 2
+vanilla beans: 2
+tomatoes: 2
+confectioners' sugar for decoration: 2
+fruit: 2
+beef broth: 2
+anise oil: 2
+ketchup: 2
+allspice: 2
+cottage cheese: 2
+chives: 2
+pound boneless pork loin roast: 2
+ground pork: 2
+lard: 2
+topping:: 2
+finely walnuts: 2
+rosemary: 2
+beans: 2
+mushrooms: 2
+half-and-half: 2
+corn syrup: 2
+caraway seeds optional: 2
+hazelnuts: 2
+cream cheese: 2
+cake:: 2
+soy sauce: 2
+finely celery: 1
+lightly sugar: 1
+mackerel: 1
+grape juice: 1
+ounce canned tomatoes: 1
+ounce petite diced tomatoes: 1
+package cake mix: 1
+recipes pastry for a inch crust pie: 1
+finely shallots: 1
+celery seeds: 1
+ounce cakes compressed yeast: 1
+package vanilla pudding mix: 1
+confectioners' sugar for dusting: 1
+raisins optional: 1
+ounce cake compressed yeast: 1
+sage: 1
+potato flour: 1
+links sausage: 1
+fresh bratwurst links: 1
+fluid ounce tomato juice: 1
+2% milk: 1
+firm pears: 1
+pound loaf bread: 1
+ounce onions: 1
+cheddar bratwurst sausages: 1
+plum butter: 1
+anise seeds: 1
+tarragon: 1
+ounce tomato soup campbell's: 1
+finely grated lemon zest: 1
+sucralose sweetener splenda: 1
+ounce kraut juice: 1
+ounce cola-flavored beverage coca-cola: 1
+currant jelly: 1
+chili powder: 1
+dill pickle juice: 1
+ounce packages dry mushroom gravy mix: 1
+stalks: 1
+polskie dill pickles: 1
+leaves: 1
+tomato paste: 1
+elderberries: 1
+sea salt: 1
+cubes chicken bouillon: 1
+package plain butter cookies: 1
+ounce bavarian-style sauerkraut: 1
+caramel sauce:: 1
+balsamic vinegar: 1
+cinnamon candies: 1
+package noodles: 1
+ounce condensed cream of mushroom soup: 1
+knoephla:: 1
+canning salt: 1
+light molasses: 1
+pound beef pot roast: 1
+strips bacon: 1
+chicken thighs: 1
+decorator sugar: 1
+gallon whole-milk buttermilk: 1
+ounce fat: 1
+ounce crushed pineapple: 1
+chocolate: 1
+cubes beef bouillon: 1
+lemons: 1
+quark cheese: 1
+milk 110 degrees degrees c: 1
+glaze optional:: 1
+dark beer: 1
+superfine sugar: 1
+liquid smoke flavoring: 1
+package beans: 1
+pure vanilla extract: 1
+links: 1
+dinner rolls: 1
+dried rosemary: 1
+for the sponge:: 1
+bottle beer: 1
+vanilla sugar:: 1
+quark: 1
+package onion soup mix: 1
+ribs: 1
+package frozen brown potatoes: 1
+ounce envelopes yeast: 1
+gherkins: 1
+meaty pork knuckles: 1
+1 stick margarine: 1
+plain bread crumbs: 1
+round steak: 1
+ground allspice optional: 1
+drops any color food coloring optional: 1
+drop anise oil: 1
+kielbasa sausage: 1
+tomato: 1
+pound bread: 1
+lukewarm milk: 1
+mixture tender quick: 1
+vanilla sugar: 1
+citron peel: 1
+potatoes such yukon gold: 1
+glaze:: 1
+paprika optional: 1
+coffee granules: 1
+chicken bouillon: 1
+pieces round: 1
+center cut pork chops: 1
+raspberry jam: 1
+prune plums: 1
+bread crumbs optional: 1
+fruit preserves: 1
+package pork sausage: 1
+blackberries: 1
+package strawberries: 1
+granny smith apples: 1
+1/2 shanks: 1
+star anise pods: 1
+bread: 1
+cocoa: 1
+meat: 1
+pastry cream: 1
+smith apples: 1
+chocolate chunks: 1
+bouillon powder: 1
+sugar for rolling: 1
+oil butter spread: 1
+sesame seeds optional: 1
+pork: 1
+cooking spray: 1
+ounce dinner roll dough: 1
+chicken stock: 1
+emmentaler cheese: 1
+potato starch: 1
+grease: 1
+coconut oil: 1
+ounce beans: 1
+chopped garlic: 1
+round roast: 1
+ground sausage: 1
+lasagna noodles: 1
+applejack brandy or calvados: 1
+sultana raisins: 1
+dill pickle spears: 1
+thick: 1
+ounce sauerkraut liquid: 1
+gravy:: 1
+packet vanilla sugar: 1
+cracker crumbs: 1
+celery salt: 1
+egg egg wash: 1
+browning sauce: 1
+meat tenderizer: 1
+ounce crescent rolls: 1
+ice cubes: 1
+ounce beef consomme: 1
+pound loaves bread dough: 1
+strips thick bacon: 1
+orange zest optional: 1
+bacon ends: 1
+ounce bing cherries: 1
+beef stew meat: 1
+bologna block: 1
+bacon grease: 1
+cherries - drained: 1
+orange peel: 1
+demerara sugar: 1
+sauerkraut liquid: 1
+ounce sliced potatoes: 1
+cutlets: 1
+plain crumbs: 1
+ounce condensed cream of chicken soup: 1
+freshly ground nutmeg: 1
+inch cinnamon sticks: 1
+ounce beef cube steaks: 1
+gala apple: 1
+ounce pinto beans: 1
+ground nutmeg optional: 1
+cucumber salad dressing: 1
+ground pork sausage: 1
+mushrooms brown: 1
+onion such vidalia: 1
+sesame oil: 1
+chicken: 1
+almonds for topping: 1
+bratwurst sausages: 1
+pistachio nuts: 1
+ounce condensed tomato soup: 1
+cashews: 1
+chocolate syrup: 1
+steel cut oats: 1
+watermelon: 1
+ounce pieces round steak: 1
+vegetable shortening: 1
+ground anise seed: 1
+lard or cooking fat: 1
+inch cinnamon stick: 1
+cumin: 1
+leaves cabbage: 1
+steak: 1
+ounce cream of chicken soup: 1
+package mincemeat: 1
+lemonade: 1
+chicken base paste: 1
+pork loin: 1
+buttery crackers keebler club crackers: 1
+beer bratwursts: 1
+knipla:: 1
+creamy salad dressing miracle whip: 1
+bakers' ammonia: 1
+ounce containers cottage cheese: 1
+boneless pork chops: 1
+inch pie crust: 1
+bosc pears: 1
+milk chocolate candy: 1
+barbecue sauce: 1
+sauerkraut - rinsed and drained: 1
+dates: 1
+eggnog: 1
+fennel seeds: 1
+ounce semisweet chocolate: 1
+chicken pieces: 1
+ounce envelope yeast: 1
+applesauce optional: 1
+quinces - peeled: 1
+celery flakes: 1
+bunch onions: 1
+horseradish: 1
+water 110 degrees f/43 to degrees c: 1
+pound whole: 1
+grated lemon peel: 1
+peeled and diced potatoes: 1
+kaiser roll: 1
+ounce beef broth: 1
+seasoning blend: 1
+fluid ounce or bottle lager beer: 1
+sprigs dill: 1
+chicken base: 1
+baking mix bisquick: 1
+leaf parsley: 1
+drops food coloring: 1
+pound pork loin roast: 1
+package shoestring fries: 1
+vanilla sauce:: 1
+package baby carrots: 1
+package roll mix: 1
+poaching liquid:: 1
+compressed yeast: 1
+beef meat: 1
+shortening crisco: 1
+macaroni: 1
+beef bouillon granules: 1
+cold milk: 1
+finely ground almonds: 1
+drained and chopped sauerkraut: 1
+package baking chocolate baker's german's sweet chocolate - broken into pieces: 1
+pimento pepper: 1
+pork sausage: 1
+pound boneless beef chuck roast: 1
+thick bacon: 1
+water 110 degrees f: 1
+ounce chicken broth: 1
+veal: 1
+creamy salad dressing: 1
+for the topping:: 1
+fluid ounce frozen apple juice concentrate: 1
+milliliter bottles wine: 1
+butter at room temperature: 1
+kale: 1
+butter cooking spray: 1
+fluid ounce or bottles beer: 1
+pound loaf bread dough: 1
+ounce bacon bits: 1
+mustard seed: 1
+toasted bread crumbs: 1
+pound chicken: 1
+seasoning cavender's: 1
+marzipan: 1
+semolina: 1
+for the fondant:: 1
+pickling spice: 1
+coriander seeds: 1
+maple syrup: 1
+finely onion: 1
+gallon wine: 1
+for the custard:: 1
+kohlrabi bulbs: 1
+fluid ounce evaporated milk: 1
+melted butter or margarine: 1
+wine riesling: 1
+coarse sugar: 1
+broiler-fryer chicken: 1
+medium eggs: 1
+container cream: 1
+zest from lemon: 1
+lentils: 1
+package mostaccioli pasta: 1
+ham hocks: 1
+package meatballs: 1
+ham steak: 1
+thickly ham: 1
+onion salt: 1
+for the cake:: 1
+ounce whole cranberry sauce: 1
+rum optional: 1
+stew: 1
+sauce:: 1
+finely almonds optional: 1
+medjool dates: 1
+for the filling:: 1
+ground celery seed: 1
+package: 1
+ounce tomato soup: 1
+ground cinnamon optional: 1
+spring onion: 1
+medium head escarole: 1
+fluid ounce chicken broth: 1
+blackstrap molasses: 1
+rolls: 1
+sugar cubes: 1
+hazelnuts - blanched: 1
+ounce packages dry yeast: 1
+pound rabbit: 1
+for the dough:: 1
+pound pork shoulder roast: 1
+pork steaks or cutlets: 1
+peppers: 1
+sauerkraut preferably barrel-aged: 1
+ounce boneless pork loin chops: 1
+almond flour: 1
+honey optional: 1
+ground coriander seed: 1
+ounce sliced mushrooms: 1
+smith apple - peeled: 1
+0.6 ounce cakes cake yeast: 1
+any flavor fruit jam: 1
+fluid kirschwasser: 1
+gallon vanilla ice cream: 1
+ounce dill pickle: 1
+cornmeal: 1
+fruit peel: 1
+ounce 1/4 inch thick of beef round: 1
+drops pepper sauce: 1
+spaghettini: 1
+bunch dill: 1
+firm tofu: 1
+processed food eg. velveeta: 1
+peeled potatoes: 1
+dill seed: 1
+leek: 1
+candy sprinkles jimmies: 1
+shredded: 1
+brandy: 1
+head savoy cabbage: 1
+pound roasting chicken: 1
+potato: 1
+shredded cabbage: 1
+boiling water cover: 1
+cooked: 1
+ounce pitted pie cherries: 1
+beef bouillon cubes: 1
+rump roast: 1

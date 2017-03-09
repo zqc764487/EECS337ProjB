@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>EECS 337: Recipes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
   </head>
   <body>
     <div id="content">
       <h1>Search a recipe and make a transformation</h1>
-      <form id="recipe-form" onsubmit="return onRecipeSubmit()">
-        <input id="recipe-input" placeholder="Find a recipe..."/>
-        <input id="recipe-search-button" type="submit" value="Submit" />
-      </form>
+      <div id="app"></div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/recipes.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/RecipeContainer.jsx') }}" type="text/jsx"></script>
   </body>
 </html>
