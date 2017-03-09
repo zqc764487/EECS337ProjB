@@ -114,6 +114,19 @@ def freq_ingredient(read_file, write_file):
 		with open(write_file, 'a+') as fout:
 			fout.write(str(x) + ": " + str(v) + "\n")
 
+def order_freq(cusine_freq):
+	total = 0
+	for ingredient in cusine_freq:
+		if ingredient:
+			total += cusine_freq[ingredient]
+	retList = []
+	for ingredient in cusine_freq:
+		if (float(cusine_freq[ingredient])/float(total) >= .0005):
+			retList.append(ingredient)
+
+	return retList
+
+
 
 
 def read_freq_file(file=FREQ_FILE_I):

@@ -2,11 +2,12 @@ import urllib
 import re
 import nltk
 from bs4 import BeautifulSoup
-from collections import Counter
+from collections import Counter, defaultdict
 from nltk.tokenize import RegexpTokenizer
 from urlparse import urljoin
 import random
 from food import *
+from crawl import *
 
 UNITS_FILE = "resources/units.txt"
 TOOLS_FILE = "resources/tools.txt"
@@ -18,6 +19,10 @@ tools = []
 methods = []
 preparations = []
 
+FREQ_FILE_I = 'resources/freq_set_i.txt'
+FREQ_FILE_F = 'resources/freq_set_f.txt'
+FREQ_FILE_G = 'resources/freq_set_g.txt'
+FREQ_FILE_A = 'resources/freq_set_a.txt'
 
 verb_tool = {
   'heat':'oven',
@@ -471,3 +476,57 @@ def makeVegetarian(recipe):
                 substitutes[ingredient] = node.get_substitutes(properties = ['-meat'])
     return substitutes
 
+def frequenciesToNodes(frequentIngredients):
+    collect = []
+    for ingredient in frequentIngredients:
+        if ingredient:
+            node = graph.pick_one(ingredient)
+            if node:
+                collect.append(node)
+    return collect 
+#recipe.convertCuisine(fetch_recipe('http://allrecipes.com/recipe/219929/heathers-fried-chicken/'), 'indian')
+def convertCuisine(recipe, toType):
+    '''
+    Inputs: Recipe Schema, And Type of cuisine you wish to convert it to "french" "indian" "african"
+    '''
+    localType = FREQ_FILE_I
+    if toType == "indian":
+        localType = FREQ_FILE_I
+    elif toType == 'german':
+        localType = FREQ_FILE_G 
+    elif toType == 'french':
+        localType = FREQ_FILE_F
+    elif toType == 'african':
+        localType = FREQ_FILE_A
+
+    frequentIngredients = order_freq(read_freq_file(localType))
+
+    freqNodes = frequenciesToNodes(frequentIngredients)
+    basicLevels = {}
+    basicLevelList = []
+    for node in freqNodes:
+        temp = [child for parent in node.parents for child in parent.children]
+        basicLevels[node] = temp
+        basicLevelList += temp
+
+    ingredients = [x['name'] for x in recipe['ingredients']]
+
+    recipeBasicLevels = {}
+    recipeBasicLevelList = []
+    for ingredient in ingredients:
+        node = graph.pick_one(ingredient)
+        if node:
+            temp = [child for parent in node.parents for child in parent.children]
+            recipeBasicLevels[ingredient] = temp
+            recipeBasicLevelList += temp
+
+    #intersections = intersect(basicLevelList, recipeBasicLevelList) #gets the ingredient nodes that appear in the basic levels for the common items in "X" cusine and the recipe that was inputted
+    substitutes = defaultdict(list)
+    for ingredient in recipeBasicLevels:
+        for node in basicLevels:
+            substitutes[ingredient] += intersect(recipeBasicLevels[ingredient],basicLevels[node])
+
+    return substitutes
+
+def intersect(a, b):
+    return list(set(a) & set(b))
