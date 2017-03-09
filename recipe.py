@@ -460,7 +460,6 @@ def fetchRecipeURL(req_recipe):
     return random.choice(links[1:])
 
 
-<<<<<<< HEAD
 def makeVegetarian(recipe):
     ingredients = [x['name'] for x in recipe['ingredients']]
     print ingredients
@@ -472,22 +471,3 @@ def makeVegetarian(recipe):
                 substitutes[ingredient] = node.get_substitutes(properties = ['-meat'])
     return substitutes
 
-#def main():
-    #read_file()
-    #recipe = fetch_recipe('http://allrecipes.com/recipe/87845/manicotti-italian-casserole/?clickId=right%20rail%201&internalSource=rr_feed_recipe&referringId=87845&referringContentType=recipe')
-    #print '\n'
-    #return
-=======
-
-'''
-def main():
-    read_file()
-    recipe = fetch_recipe('http://allrecipes.com/recipe/143113/magpies-easy-falafel-cakes/')
-    print '\n'
-    return
->>>>>>> 1b13f63209fad1110011487626e73d02d0b44e90
-
-
-if __name__ == '__main__':
-    main()
-'''
