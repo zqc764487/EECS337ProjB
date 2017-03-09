@@ -459,35 +459,50 @@ def fetchRecipeURL(req_recipe):
                 links.append(urljoin(baseSite, link['href']))
     return random.choice(links[1:])
 
+def replaceWholeWord(sentence, replacement, sub):
+    words = nltk.word_tokenize(sentence)
+    for index, word in enumerate(words):
+        if word == str(replacement):
+            words[index] = str(sub)
+    return " ".join(words)
 
-<<<<<<< HEAD
+
+def replaceIngredients(recipe, substitutes):
+    for replacement in substitutes:
+        substitute = substitutes[replacement]
+        swap = str(random.choice(substitute).name)
+
+        # if has wordnet naming scheme, extract food name
+        if "." in swap:
+            swap = swap.split(".")[0]
+
+        for ingredient in recipe['ingredients']:
+            name = str(ingredient['name'])
+            ingredient['name'] = replaceWholeWord(name, str(replacement), swap)
+
+        for index, step in enumerate(recipe['steps']):
+            recipe['steps'][index] = replaceWholeWord(step, str(replacement), swap)
+
+        for i, strucstep in enumerate(recipe['structuredsteps']):
+            ingredients = strucstep['ingredients']
+            step = strucstep['step']
+
+            for j, ingredient in enumerate(ingredients):
+                recipe['structuredsteps'][i]['ingredients'][j] = replaceWholeWord(ingredient, str(replacement), swap)
+            recipe['structuredsteps'][i]['step'] = replaceWholeWord(step, str(replacement), swap)
+
+    return recipe
+
+
 def makeVegetarian(recipe):
     ingredients = [x['name'] for x in recipe['ingredients']]
-    print ingredients
     substitutes = {}
     for ingredient in ingredients:
         node = graph.pick_one(ingredient)
         if node:
             if node.has_property('meat'):
-                substitutes[ingredient] = node.get_substitutes(properties = ['-meat'])
+                substitutes[ingredient] = list(node.get_substitutes(properties = ['-meat']))
+
     return substitutes
 
-#def main():
-    #read_file()
-    #recipe = fetch_recipe('http://allrecipes.com/recipe/87845/manicotti-italian-casserole/?clickId=right%20rail%201&internalSource=rr_feed_recipe&referringId=87845&referringContentType=recipe')
-    #print '\n'
-    #return
-=======
 
-'''
-def main():
-    read_file()
-    recipe = fetch_recipe('http://allrecipes.com/recipe/143113/magpies-easy-falafel-cakes/')
-    print '\n'
-    return
->>>>>>> 1b13f63209fad1110011487626e73d02d0b44e90
-
-
-if __name__ == '__main__':
-    main()
-'''
