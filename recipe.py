@@ -464,10 +464,43 @@ def fetchRecipeURL(req_recipe):
                 links.append(urljoin(baseSite, link['href']))
     return random.choice(links[1:])
 
+def replaceWholeWord(sentence, replacement, sub):
+    words = nltk.word_tokenize(sentence)
+    for index, word in enumerate(words):
+        if word == str(replacement):
+            words[index] = str(sub)
+    return " ".join(words)
+
+
+def replaceIngredients(recipe, substitutes):
+    for replacement in substitutes:
+        substitute = substitutes[replacement]
+        swap = str(random.choice(substitute).name)
+
+        # if has wordnet naming scheme, extract food name
+        if "." in swap:
+            swap = swap.split(".")[0]
+
+        for ingredient in recipe['ingredients']:
+            name = str(ingredient['name'])
+            ingredient['name'] = replaceWholeWord(name, str(replacement), swap)
+
+        for index, step in enumerate(recipe['steps']):
+            recipe['steps'][index] = replaceWholeWord(step, str(replacement), swap)
+
+        for i, strucstep in enumerate(recipe['structuredsteps']):
+            ingredients = strucstep['ingredients']
+            step = strucstep['step']
+
+            for j, ingredient in enumerate(ingredients):
+                recipe['structuredsteps'][i]['ingredients'][j] = replaceWholeWord(ingredient, str(replacement), swap)
+            recipe['structuredsteps'][i]['step'] = replaceWholeWord(step, str(replacement), swap)
+
+    return recipe
+
 
 def makeVegetarian(recipe):
     ingredients = [x['name'] for x in recipe['ingredients']]
-    print ingredients
     substitutes = {}
     for ingredient in ingredients:
         node = graph.pick_one(ingredient)
@@ -527,6 +560,6 @@ def convertCuisine(recipe, toType):
             substitutes[ingredient] += intersect(recipeBasicLevels[ingredient],basicLevels[node])
 
     return substitutes
-
 def intersect(a, b):
     return list(set(a) & set(b))
+
