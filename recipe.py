@@ -516,6 +516,7 @@ def frequenciesToNodes(frequentIngredients):
             node = graph.pick_one(ingredient)
             if node:
                 collect.append((ingredient,node))
+
     return collect 
 #recipe.convertCuisine(fetch_recipe('http://allrecipes.com/recipe/219929/heathers-fried-chicken/'), 'indian')
 def convertCuisine(recipe, toType):
@@ -535,30 +536,29 @@ def convertCuisine(recipe, toType):
     frequentIngredients = order_freq(read_freq_file(localType))
 
     freqNodes = frequenciesToNodes(frequentIngredients)
+
     basicLevels = {}
-    basicLevelList = []
     for node in freqNodes:
         temp = [child for parent in node[1].parents for child in parent.children]
         basicLevels[node] = temp
-        basicLevelList += temp
 
     ingredients = [x['name'] for x in recipe['ingredients']]
 
     recipeBasicLevels = {}
-    recipeBasicLevelList = []
     for ingredient in ingredients:
         node = graph.pick_one(ingredient)
         if node:
             temp = [child for parent in node.parents for child in parent.children]
-            recipeBasicLevels[(ingredient,node)] = temp
-            recipeBasicLevelList += temp
+            #recipeBasicLevels[(ingredient,node)] = temp
+            recipeBasicLevels[ingredient] = temp
 
     #intersections = intersect(basicLevelList, recipeBasicLevelList) #gets the ingredient nodes that appear in the basic levels for the common items in "X" cusine and the recipe that was inputted
     substitutes = defaultdict(list)
     for ingredient in recipeBasicLevels:
         for node in basicLevels:
             if intersect(recipeBasicLevels[ingredient],basicLevels[node]):
-                substitutes[ingredient].append(node)
+                if node[0] != ingredient:
+                    substitutes[ingredient].append(node[0])
 
     return substitutes
 def intersect(a, b):

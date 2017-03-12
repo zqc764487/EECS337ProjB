@@ -126,9 +126,6 @@ def order_freq(cusine_freq):
 
 	return retList
 
-
-
-
 def read_freq_file(file=FREQ_FILE_I):
 	d = {}
 	with open(file) as fin:
