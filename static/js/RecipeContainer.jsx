@@ -7,20 +7,22 @@ const SVG_LOADING_ICON = (<div className="loader">
 
 var VALID_VEG_OPTIONS = [
   { value: 'NONE', label: 'Non-vegetarian' },
-  { value: 'VEG', label: 'Vegetarian' }
+  { value: 'veg', label: 'Vegetarian' }
 ];
 
 var VALID_CUISINE_OPTIONS = [
   { value: 'NONE', label: 'No cuisine transformation' },
-  { value: 'INDIAN', label: 'Indian' },
-  { value: 'GERMAN', label: 'German' },
-  { value: 'FRENCH', label: 'French' },
-  { value: 'AFRICAN', label: 'African' }
+  { value: 'indian', label: 'Indian' },
+  { value: 'german', label: 'German' },
+  { value: 'french', label: 'French' },
+  { value: 'african', label: 'African' }
 ];
 
 var VALID_HEALTH_OPTIONS = [
   { value: 'NONE', label: 'No health transformation' },
-  { value: 'HEALTHY', label: 'Healthy' }
+  { value: 'healthy', label: 'Healthy' },
+  { value: 'lowfat', label: 'Low Fat' },
+  { value: 'lowcal', label: 'Low Calorie' },
 ];
 
 // TEST :http://allrecipes.com/recipe/219929/heathers-fried-chicken/
@@ -31,9 +33,9 @@ var RecipeContainer = React.createClass({
       query: '',
       recipe: undefined,
       loading: false,
-      vegTransform: 'NONE',
-      cuisineTransform: 'NONE',
-      healthTransform: 'NONE'
+      vegTransform: VALID_VEG_OPTIONS[0],
+      cuisineTransform: VALID_CUISINE_OPTIONS[0],
+      healthTransform: VALID_HEALTH_OPTIONS[0]
     }
   },
 
@@ -55,15 +57,35 @@ var RecipeContainer = React.createClass({
       this.setState({
         loading: true
       });
+
+      var req = {};
       var url = endpoint; // local
       var xmlHttp = new XMLHttpRequest();
+
+      if (this.state.vegTransform && this.state.vegTransform.value != 'NONE') {
+        req['veg'] = true;
+      }
+
+      if (this.state.cuisineTransform && this.state.cuisineTransform.value != 'NONE') {
+        req['cuisine'] = this.state.cuisineTransform.value;
+      }
+
+      if (this.state.healthTransform && this.state.healthTransform.value != 'NONE') {
+        req['health'] = this.state.healthTransform.value;
+      }
+
+      req['url'] = recipeUrl;
+
+      console.log(req);
+
       xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
           callback(xmlHttp.responseText);
         }
       }
       xmlHttp.open(method, url, true);
-      xmlHttp.send(recipeUrl);
+      xmlHttp.setRequestHeader('Content-Type', 'application/json');
+      xmlHttp.send(JSON.stringify(req));
     }
   },
 
@@ -197,7 +219,6 @@ var Recipe = React.createClass({
   },
 
   render: function () {
-    console.log(this.props.recipe)
     if (this.props.recipe != undefined) {
       var recipe = this.props.recipe;
       return (
