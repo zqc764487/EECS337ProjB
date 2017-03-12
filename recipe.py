@@ -24,6 +24,10 @@ FREQ_FILE_I = 'resources/freq_set_i.txt'
 FREQ_FILE_F = 'resources/freq_set_f.txt'
 FREQ_FILE_G = 'resources/freq_set_g.txt'
 FREQ_FILE_A = 'resources/freq_set_a.txt'
+FREQ_FILE_HEALTHY = 'resources/freq_set_healthy.txt'
+FREQ_FILE_LOWCAL = 'resources/freq_set_lowCal.txt'
+FREQ_FILE_LOWFAT = 'resources/freq_set_lowFat.txt'
+
 
 verb_tool = {
   'heat':'oven',
@@ -530,6 +534,12 @@ def convertCuisine(recipe, toType):
         localType = FREQ_FILE_F
     elif toType == 'african':
         localType = FREQ_FILE_A
+    elif toType == 'healthy':
+        localType = FREQ_FILE_HEALTHY
+    elif toType == 'lowfat':
+        localType = FREQ_FILE_LOWFAT
+    elif toType == 'lowcal':
+        localType = FREQ_FILE_LOWCAL
 
     frequentIngredients = order_freq(read_freq_file(localType))
 
