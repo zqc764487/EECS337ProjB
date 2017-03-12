@@ -19,7 +19,7 @@ body {
 
 #content {
   padding-top: 50px;
-  max-width: 640px;
+  max-width: 768px;
   margin: 0 auto;
 }
 
@@ -66,6 +66,21 @@ body {
   margin: 7px;
 
   cursor: pointer;
+}
+
+#recipe-form .recipe-transforms {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#recipe-form .recipe-transforms .Select {
+  width: 32%;
+  display: inline-block;
+  min-width: 100px;
+}
+
+#recipe-form .recipe-transforms .Select:first-child, #recipe-form .recipe-transforms .Select:nth-child(2)  {
+  margin-right: 2%;
 }
 
 /* CSS LOADER */

@@ -4,12 +4,35 @@ const SVG_LOADING_ICON = (<div className="loader">
                               </svg>
                             </div>);
 
+
+var VALID_VEG_OPTIONS = [
+  { value: 'NONE', label: 'Non-vegetarian' },
+  { value: 'VEG', label: 'Vegetarian' }
+];
+
+var VALID_CUISINE_OPTIONS = [
+  { value: 'NONE', label: 'No cuisine transformation' },
+  { value: 'INDIAN', label: 'Indian' },
+  { value: 'GERMAN', label: 'German' },
+  { value: 'FRENCH', label: 'French' },
+  { value: 'AFRICAN', label: 'African' }
+];
+
+var VALID_HEALTH_OPTIONS = [
+  { value: 'NONE', label: 'No health transformation' },
+  { value: 'HEALTHY', label: 'Healthy' }
+]
+
+
 var RecipeContainer = React.createClass({
   getInitialState: function () {
     return {
       query: '',
       recipe: undefined,
-      loading: false
+      loading: false,
+      vegTransform: 'NONE',
+      cuisineTransform: 'NONE',
+      healthTransform: 'NONE'
     }
   },
 
@@ -26,7 +49,7 @@ var RecipeContainer = React.createClass({
     });
   },
 
-  fetchRecipe: function (endpoint, method, recipe, callback) {
+  fetchRecipe: function (endpoint, method, recipeUrl, callback) {
     this.setState({
       loading: true
     });
@@ -38,9 +61,29 @@ var RecipeContainer = React.createClass({
       }
     }
     xmlHttp.open(method, url, true);
-    xmlHttp.send(null);
+    xmlHttp.send(recipeUrl);
   },
 
+  onTransform: function (value, type) { 
+    var changes = {}
+    var key;
+    switch(type) {
+      case 'VEG':
+        key = 'vegTransform';
+        break;
+      case 'CUISINE':
+        key = 'cuisineTransform';
+        break;
+      case 'HEALTH':
+        key = 'healthTransform';
+        break;
+      default:
+        return;
+    }
+
+    changes[key] = value;
+    this.setState(changes);
+  },
 
   render: function () {
     return (
@@ -50,7 +93,11 @@ var RecipeContainer = React.createClass({
             query={this.state.query}
             onChangeRecipe={this.onChangeRecipe}
             fetchRecipe={this.fetchRecipe}
-            renderRecipe={this.renderRecipe} />
+            renderRecipe={this.renderRecipe}
+            onTransform={this.onTransform}
+            vegTransform={this.state.vegTransform}
+            cuisineTransform={this.state.cuisineTransform}
+            healthTransform={this.state.healthTransform} />
           <Recipe
             recipe={this.state.recipe}
             loading={this.state.loading} />
@@ -68,20 +115,44 @@ var RecipeForm = React.createClass({
   handleSubmit: function (e) {
     var props = this.props;
     e.preventDefault();
-    props.fetchRecipe('/fetchRecipe', 'GET', this.props.recipe, function (response) {
+    props.fetchRecipe('/fetchRecipe', 'POST', this.props.query, function (response) {
       props.renderRecipe(JSON.parse(response));
     });
   },
 
   render: function () {
-    if (this.props.recipe == undefined) {
+    var props = this.props;
+    if (props.recipe == undefined) {
       return (
-        <form id="recipe-form" onSubmit={this.handleSubmit}>
-          <input id="recipe-input" placeholder="Enter a recipe URL" 
-            value={this.props.query}
-            onChange={this.handleChangeRecipe} />
-          <input id="recipe-search-button" type="submit" value="Submit" />
-        </form>
+        <div>
+          <h1>Search a recipe and make a transformation</h1>
+          <form id="recipe-form" onSubmit={this.handleSubmit}>
+            <input id="recipe-input" placeholder="Enter a recipe URL" 
+              value={props.query}
+              onChange={this.handleChangeRecipe} />
+            <div className="recipe-transforms">
+              <Select 
+                options={VALID_VEG_OPTIONS}
+                value={props.vegTransform}
+                onChange={ function (value) {
+                  props.onTransform(value, 'VEG');
+                }} />
+              <Select 
+                options={VALID_CUISINE_OPTIONS}
+                value={props.cuisineTransform}
+                onChange={ function (value) {
+                  props.onTransform(value, 'CUISINE');
+                }} />
+              <Select 
+                options={VALID_HEALTH_OPTIONS}
+                value={props.healthTransform}
+                onChange={ function (value) {
+                  props.onTransform(value, 'HEALTH');
+                }} />
+            </div>
+            <input id="recipe-search-button" type="submit" value="Submit" />
+          </form>
+        </div>
       );
     } else {
       return <div></div>;
@@ -113,7 +184,6 @@ var Recipe = React.createClass({
   render: function () {
     if (this.props.recipe != undefined) {
       var recipe = this.props.recipe;
-      console.log(recipe);
       return (
         <div>
           <div id="recipe">
