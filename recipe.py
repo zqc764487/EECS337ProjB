@@ -505,6 +505,7 @@ def makeVegetarian(recipe):
     substitutes = {}
     for ingredient in ingredients:
         node = graph.pick_one(ingredient)
+        print node
         if node:
             if node.has_property('meat'):
                 substitutes[ingredient] = node.get_substitutes(properties = ['-meat'])
@@ -547,6 +548,7 @@ def convertCuisine(recipe, toType):
 
     basicLevels = {}
     for node in freqNodes:
+        print node
         temp = [child for parent in node[1].parents for child in parent.children]
         basicLevels[node] = temp
 
@@ -556,6 +558,8 @@ def convertCuisine(recipe, toType):
     for ingredient in ingredients:
         node = graph.pick_one(ingredient)
         if node:
+            print "PARENTS"
+            print node.parents
             temp = [child for parent in node.parents for child in parent.children]
             #recipeBasicLevels[(ingredient,node)] = temp
             recipeBasicLevels[ingredient] = temp
@@ -566,9 +570,10 @@ def convertCuisine(recipe, toType):
         for node in basicLevels:
             if intersect(recipeBasicLevels[ingredient],basicLevels[node]):
                 if node[0] != ingredient:
-                    substitutes[ingredient].append(node[0])
+                    substitutes[ingredient].append(node[1])
 
-    return substitutes
+    return dict(substitutes)
+    
 def intersect(a, b):
     return list(set(a) & set(b))
 

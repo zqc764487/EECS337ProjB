@@ -2,7 +2,6 @@ from recipe import *
 from flask import Flask, request, session, g, redirect, url_for, \
 		 abort, render_template, flash, jsonify
 import json
-
 from jinja2 import Environment, FileSystemLoader
 import os
 
@@ -35,17 +34,20 @@ def fetchRecipe():
 	if 'url' in data:
 		recipe_url = data["url"]
 
-	if 'veg' in data:
-		veg_transform = data["veg"]
+	recipe = fetch_recipe(recipe_url)
 
 	if 'cuisine' in data:
 		cuisine_transform = data["cuisine"]
-		
+		print convertCuisine(recipe, cuisine_transform)
+		recipe = replaceIngredients(recipe, convertCuisine(recipe, cuisine_transform))
+
 	if 'health' in data:
 		health_transform = data["health"]
 
+	if 'veg' in data:
+		# print makeVegetarian(recipe)
+		recipe = replaceIngredients(recipe, makeVegetarian(recipe))
 
-	recipe = fetch_recipe(recipe_url)
 	return jsonify(recipe)
 
 	
