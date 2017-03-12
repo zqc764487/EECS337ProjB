@@ -505,6 +505,7 @@ def makeVegetarian(recipe):
                 substitutes[ingredient] = node.get_substitutes(properties = ['-meat'])
     return substitutes
 
+
 def frequenciesToNodes(frequentIngredients):
     collect = []
     for ingredient in frequentIngredients:
