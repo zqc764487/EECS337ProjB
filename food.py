@@ -6,7 +6,7 @@ wn = wordnet.wordnet
 from util import loadCategorization
 
 # Whether to use a fallback strategy when matching a query to a node.
-FALLBACK = True
+FALLBACK = False
 
 # Category lists.
 CATEGORY_FILES = []

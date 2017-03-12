@@ -609,7 +609,25 @@ def split_into_sentences(text):
     return sentences
 
 
+def order_freq(cusine_freq):
+    total = 0
+    for ingredient in cusine_freq:
+        if ingredient:
+            total += cusine_freq[ingredient]
+    retList = []
+    for ingredient in cusine_freq:
+        if (float(cusine_freq[ingredient])/float(total) >= .0005):
+            retList.append(ingredient)
 
+    return retList
+def read_freq_file(file=FREQ_FILE_I):
+    d = {}
+    with open(file) as fin:
+        for line in fin:
+            (key, val) = line.split(': ')
+            val = re.sub('\n', '', val)
+            d[str(key)] = int(val)
+    return d
 # Functions to trace references to methods/ingredients in a recipe.
 
 def find_whole_word(sentence, word):
