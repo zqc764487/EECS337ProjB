@@ -5,6 +5,9 @@ from nltk import wordnet
 wn = wordnet.wordnet
 from util import loadCategorization
 
+# Whether to use a fallback strategy when matching a query to a node.
+FALLBACK = True
+
 # Category lists.
 CATEGORY_FILES = []
 # Substitution lists.
@@ -115,7 +118,7 @@ class Index(dict):
 			results = [r for r in results if all_properties(r, properties)]
 		return results[:n] if n else results
 
-	def pick_one(self, query=None, properties=None, fallback=True):
+	def pick_one(self, query=None, properties=None, fallback=FALLBACK):
 		# If fallback is true, fall back to each word in the query in turn before failing.
 		if not query:
 			results = self.values()
@@ -196,7 +199,7 @@ class Node(object):
 				results.append(result)
 		return results[:n] if n else results
 
-	def pick_one(self, query=None, properties=None, fallback=True):
+	def pick_one(self, query=None, properties=None, fallback=FALLBACK):
 		return self.index.pick_one(query=query, properties=properties, fallback=fallback)
 
 	def add_lemma(self, lemma):

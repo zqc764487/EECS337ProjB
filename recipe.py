@@ -218,7 +218,7 @@ def parse_ingredient(ingredient):
     for index, word in enumerate(ingLst):
         if word in synonyms:
             word = unit_abbreviation[word]
-        if word[0].isnumeric() and re.search(r'^\d\/\d+$', word):
+        if unicode(word[0]).isnumeric() and re.search(r'^\d\/\d+$', word):
             if quantity == '':
                 quantity = float(convert(word))
                 quantityR.append(word)
@@ -226,7 +226,7 @@ def parse_ingredient(ingredient):
                 quantity = float(quantity) + float(convert(word))
                 quantityR.append(word)
             continue
-        elif word.isnumeric():
+        elif unicode(word).isnumeric():
             if quantity == '':
                 quantity = float(convert(word))
                 quantityR.append(word)
@@ -563,4 +563,25 @@ def convertCuisine(recipe, toType):
     return substitutes
 def intersect(a, b):
     return list(set(a) & set(b))
+
+
+
+# Functions to trace references to methods/ingredients in a recipe.
+
+def find_whole_word(sentence, word):
+    return word in nltk.word_tokenize(sentence)
+
+def ingredient_references(recipe, graph=graph):
+    """Given a recipe and a food graph, a list of ingredient nodes used in each step."""
+    refs = []
+    for index, step in enumerate(recipe['structuredsteps']):
+        step_refs = []
+        for ingredient in step['ingredients']:
+            step_refs.append(graph.pick_one(ingredient))
+        refs.append(step_refs)
+    return refs
+
+def method_references(recipe):
+    """Return the list of methods used in each step."""
+    return [step['methods'] for step in recipe['structuredsteps']]
 
