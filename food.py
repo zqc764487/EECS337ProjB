@@ -115,7 +115,8 @@ class Index(dict):
 			results = [r for r in results if all_properties(r, properties)]
 		return results[:n] if n else results
 
-	def pick_one(self, query=None, properties=None):
+	def pick_one(self, query=None, properties=None, fallback=True):
+		# If fallback is true, fall back to each word in the query in turn before failing.
 		if not query:
 			results = self.values()
 			for result in results:
@@ -133,6 +134,11 @@ class Index(dict):
 				for result in self.lemmas[lemma]:
 					if all_properties(result, properties):
 						return result
+		if fallback:
+			for word in query.split():
+				result = self.pick_one(word, properties=properties, fallback=False)
+				if result:
+					return result
 		return None
 
 class Node(object):
@@ -190,8 +196,8 @@ class Node(object):
 				results.append(result)
 		return results[:n] if n else results
 
-	def pick_one(self, query=None, properties=None):
-		return self.index.pick_one(query=query, properties=properties)
+	def pick_one(self, query=None, properties=None, fallback=True):
+		return self.index.pick_one(query=query, properties=properties, fallback=fallback)
 
 	def add_lemma(self, lemma):
 		if lemma not in self.lemmas:
