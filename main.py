@@ -1,6 +1,7 @@
 from recipe import *
 from flask import Flask, request, session, g, redirect, url_for, \
 		 abort, render_template, flash, jsonify
+import json
 
 from jinja2 import Environment, FileSystemLoader
 import os
@@ -25,8 +26,26 @@ def show_vanilla_home():
 
 @app.route('/fetchRecipe', methods=['POST'])
 def fetchRecipe():
-	url = request.data
-	recipe = fetch_recipe(url)
+	data = json.loads(request.data)
+	recipe_url = None 
+	veg_transform = None
+	cuisine_transform = None
+	health_transform = None
+	
+	if 'url' in data:
+		recipe_url = data["url"]
+
+	if 'veg' in data:
+		veg_transform = data["veg"]
+
+	if 'cuisine' in data:
+		cuisine_transform = data["cuisine"]
+		
+	if 'health' in data:
+		health_transform = data["health"]
+
+
+	recipe = fetch_recipe(recipe_url)
 	return jsonify(recipe)
 
 	
