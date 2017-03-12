@@ -135,7 +135,7 @@ class Index(dict):
 					if all_properties(result, properties):
 						return result
 		if fallback:
-			for word in query.split():
+			for word in reversed(query.split()):
 				result = self.pick_one(word, properties=properties, fallback=False)
 				if result:
 					return result
