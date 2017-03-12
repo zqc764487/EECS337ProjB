@@ -4,7 +4,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
 import json
 from jinja2 import Environment, FileSystemLoader
 import os
-
+from copy import deepcopy
 
 
 # configuration
@@ -35,6 +35,7 @@ def fetchRecipe():
 		recipe_url = data["url"]
 
 	recipe = fetch_recipe(recipe_url)
+	old = deepcopy(recipe)
 
 	if 'cuisine' in data:
 		cuisine_transform = data["cuisine"]
@@ -47,7 +48,11 @@ def fetchRecipe():
 	if 'veg' in data:
 		recipe = replaceIngredients(recipe, makeVegetarian(recipe))
 
-	return jsonify(recipe)
+	ret = {}
+	ret['old'] = old
+	ret['new'] = recipe
+
+	return jsonify(ret)
 
 	
 # Error Handlers

@@ -95,6 +95,7 @@ body {
 }
 
 #recipe {
+  margin: 5px 0;
   padding: 20px;
   background: #fff;
 }
@@ -106,6 +107,14 @@ body {
 
 #recipe #title h2 {
   margin-top: 0px;
+}
+
+#recipe #title h2 b.input {
+  color: #e74c3c;
+}
+
+#recipe #title h2 b.output {
+  color: #2ecc71;
 }
 
 #recipe .recipe-content {

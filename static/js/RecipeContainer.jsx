@@ -32,6 +32,7 @@ var RecipeContainer = React.createClass({
     return {
       query: '',
       recipe: undefined,
+      prev: undefined,
       loading: false,
       vegTransform: VALID_VEG_OPTIONS[0],
       cuisineTransform: VALID_CUISINE_OPTIONS[0],
@@ -45,9 +46,10 @@ var RecipeContainer = React.createClass({
     });
   },
 
-  renderRecipe: function (recipe) {
+  renderRecipe: function (recipe, prevRecipe) {
     this.setState({
       recipe: recipe,
+      prev: prevRecipe,
       loading: false
     });
   },
@@ -75,8 +77,6 @@ var RecipeContainer = React.createClass({
       }
 
       req['url'] = recipeUrl;
-
-      console.log(req);
 
       xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
@@ -124,6 +124,11 @@ var RecipeContainer = React.createClass({
             cuisineTransform={this.state.cuisineTransform}
             healthTransform={this.state.healthTransform} />
           <Recipe
+            type="input"
+            recipe={this.state.prev}
+            loading={this.state.loading} />
+          <Recipe
+            type="output"
             recipe={this.state.recipe}
             loading={this.state.loading} />
         </div>
@@ -141,7 +146,8 @@ var RecipeForm = React.createClass({
     var props = this.props;
     e.preventDefault();
     props.fetchRecipe('/fetchRecipe', 'POST', this.props.query, function (response) {
-      props.renderRecipe(JSON.parse(response));
+      var resp = JSON.parse(response);
+      props.renderRecipe(resp.new, resp.old);
     });
   },
 
@@ -224,7 +230,7 @@ var Recipe = React.createClass({
       return (
         <div>
           <div id="recipe">
-            <div id="title"><h2>{recipe.title}</h2></div>
+            <div id="title"><h2><b className={this.props.type}>{this.props.type.toUpperCase()}:</b> {recipe.title}</h2></div>
             <div className="recipe-content">
               <div className="row clearfix">
                 <div className="ingredients"> 

@@ -505,7 +505,6 @@ def makeVegetarian(recipe):
     substitutes = {}
     for ingredient in ingredients:
         node = graph.pick_one(ingredient)
-        print node
         if node:
             if node.has_property('meat'):
                 substitutes[ingredient] = node.get_substitutes(properties = ['-meat'])
@@ -558,8 +557,6 @@ def convertCuisine(recipe, toType):
     for ingredient in ingredients:
         node = graph.pick_one(ingredient)
         if node:
-            print "PARENTS"
-            print node.parents
             temp = [child for parent in node.parents for child in parent.children]
             #recipeBasicLevels[(ingredient,node)] = temp
             recipeBasicLevels[ingredient] = temp
