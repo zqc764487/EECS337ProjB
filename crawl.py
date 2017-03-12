@@ -146,7 +146,8 @@ def read_freq_file(file=FREQ_FILE_I):
 
 
 
-freq_ingredient(RECIPE_HEALTHY_FOOD, FREQ_FILE_HEALTHY)
+freq_ingredient(RECIPE_LOWFAT_FOOD, FREQ_FILE_LOWFAT)
+freq_ingredient(RECIPE_LOWCAL_FOOD, FREQ_FILE_LOWCAL)
 '''
 write_freq_file("http://allrecipes.com/recipes/1232/healthy-recipes/low-calorie/", FREQ_FILE_LOWCAL)
 write_freq_file("http://allrecipes.com/recipes/1231/healthy-recipes/low-fat/", FREQ_FILE_LOWFAT)

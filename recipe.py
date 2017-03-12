@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import urllib
 import re
 import nltk
@@ -7,7 +8,7 @@ from nltk.tokenize import RegexpTokenizer
 from urlparse import urljoin
 import random
 from food import *
-from crawl import *
+#from crawl import *
 
 UNITS_FILE = "resources/units.txt"
 TOOLS_FILE = "resources/tools.txt"
