@@ -246,9 +246,6 @@ def parse_ingredient(ingredient):
         	preparation += ''+ ' '.join(ingLst[index+1:])
         	ingLst = ingLst[:index+1]
 
-
-
-
     for word in measurementR:
         if word in ingLst:
             ingLst.remove(word)
@@ -258,7 +255,6 @@ def parse_ingredient(ingredient):
     for word in descriptors:
         if word in ingLst:
             ingLst.remove(word)
-
 
     stopwords = [ 'more', 'as', 'needed', 'with', 'skin', 'to', 'taste', 'such']
     for word in stopwords:
@@ -509,6 +505,7 @@ def makeVegetarian(recipe):
                 substitutes[ingredient] = node.get_substitutes(properties = ['-meat'])
     return substitutes
 
+
 def frequenciesToNodes(frequentIngredients):
     collect = []
     for ingredient in frequentIngredients:
@@ -563,6 +560,32 @@ def convertCuisine(recipe, toType):
     return substitutes
 def intersect(a, b):
     return list(set(a) & set(b))
+def split_into_sentences(text):
+    text = " " + text + "  "
+    text = text.replace("\n"," ")
+    text = re.sub(prefixes,"\\1<prd>",text)
+    text = re.sub(websites,"<prd>\\1",text)
+    if "Ph.D" in text: text = text.replace("Ph.D.","Ph<prd>D<prd>")
+    text = re.sub("\s" + caps + "[.] "," \\1<prd> ",text)
+    text = re.sub(acronyms+" "+starters,"\\1<stop> \\2",text)
+    text = re.sub(caps + "[.]" + caps + "[.]" + caps + "[.]","\\1<prd>\\2<prd>\\3<prd>",text)
+    text = re.sub(caps + "[.]" + caps + "[.]","\\1<prd>\\2<prd>",text)
+    text = re.sub(" "+suffixes+"[.] "+starters," \\1<stop> \\2",text)
+    text = re.sub(" "+suffixes+"[.]"," \\1<prd>",text)
+    text = re.sub(" " + caps + "[.]"," \\1<prd>",text)
+    if "”" in text: text = text.replace(".”","”.")
+    if "\"" in text: text = text.replace(".\"","\".")
+    if "!" in text: text = text.replace("!\"","\"!")
+    if "?" in text: text = text.replace("?\"","\"?")
+    text = text.replace(".",".<stop>")
+    text = text.replace("?","?<stop>")
+    text = text.replace("!","!<stop>")
+    text = text.replace("<prd>",".")
+    text = re.sub(digits + "[.]" + digits,"\\1<prd>\\2",text)
+    sentences = text.split("<stop>")
+    sentences = sentences[:-1]
+    sentences = [s.strip() for s in sentences]
+    return sentences
 
 
 
