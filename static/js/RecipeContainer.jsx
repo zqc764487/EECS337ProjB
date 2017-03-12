@@ -7,22 +7,25 @@ const SVG_LOADING_ICON = (<div className="loader">
 
 var VALID_VEG_OPTIONS = [
   { value: 'NONE', label: 'Non-vegetarian' },
-  { value: 'VEG', label: 'Vegetarian' }
+  { value: 'veg', label: 'Vegetarian' }
 ];
 
 var VALID_CUISINE_OPTIONS = [
   { value: 'NONE', label: 'No cuisine transformation' },
-  { value: 'INDIAN', label: 'Indian' },
-  { value: 'GERMAN', label: 'German' },
-  { value: 'FRENCH', label: 'French' },
-  { value: 'AFRICAN', label: 'African' }
+  { value: 'indian', label: 'Indian' },
+  { value: 'german', label: 'German' },
+  { value: 'french', label: 'French' },
+  { value: 'african', label: 'African' }
 ];
 
 var VALID_HEALTH_OPTIONS = [
   { value: 'NONE', label: 'No health transformation' },
-  { value: 'HEALTHY', label: 'Healthy' }
-]
+  { value: 'healthy', label: 'Healthy' },
+  { value: 'lowfat', label: 'Low Fat' },
+  { value: 'lowcal', label: 'Low Calorie' },
+];
 
+// TEST :http://allrecipes.com/recipe/219929/heathers-fried-chicken/
 
 var RecipeContainer = React.createClass({
   getInitialState: function () {
@@ -30,9 +33,9 @@ var RecipeContainer = React.createClass({
       query: '',
       recipe: undefined,
       loading: false,
-      vegTransform: 'NONE',
-      cuisineTransform: 'NONE',
-      healthTransform: 'NONE'
+      vegTransform: VALID_VEG_OPTIONS[0],
+      cuisineTransform: VALID_CUISINE_OPTIONS[0],
+      healthTransform: VALID_HEALTH_OPTIONS[0]
     }
   },
 
@@ -50,18 +53,40 @@ var RecipeContainer = React.createClass({
   },
 
   fetchRecipe: function (endpoint, method, recipeUrl, callback) {
-    this.setState({
-      loading: true
-    });
-    var url = endpoint; // local
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-        callback(xmlHttp.responseText);
+    if (recipeUrl) {
+      this.setState({
+        loading: true
+      });
+
+      var req = {};
+      var url = endpoint; // local
+      var xmlHttp = new XMLHttpRequest();
+
+      if (this.state.vegTransform && this.state.vegTransform.value != 'NONE') {
+        req['veg'] = true;
       }
+
+      if (this.state.cuisineTransform && this.state.cuisineTransform.value != 'NONE') {
+        req['cuisine'] = this.state.cuisineTransform.value;
+      }
+
+      if (this.state.healthTransform && this.state.healthTransform.value != 'NONE') {
+        req['health'] = this.state.healthTransform.value;
+      }
+
+      req['url'] = recipeUrl;
+
+      console.log(req);
+
+      xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+          callback(xmlHttp.responseText);
+        }
+      }
+      xmlHttp.open(method, url, true);
+      xmlHttp.setRequestHeader('Content-Type', 'application/json');
+      xmlHttp.send(JSON.stringify(req));
     }
-    xmlHttp.open(method, url, true);
-    xmlHttp.send(recipeUrl);
   },
 
   onTransform: function (value, type) { 
@@ -150,7 +175,7 @@ var RecipeForm = React.createClass({
                   props.onTransform(value, 'HEALTH');
                 }} />
             </div>
-            <input id="recipe-search-button" type="submit" value="Submit" />
+            <input id="recipe-search-button" className={ this.props.query ? "active" : "inactive" } type="submit" value="Submit" />
           </form>
         </div>
       );
@@ -181,6 +206,18 @@ var Recipe = React.createClass({
     });
   },
 
+  renderNumericalList: function (list) {
+    return list.map(function (item, index) {
+      if (item) {
+        return (
+          <div key={index}>
+            {index + 1}) { item }
+          </div>
+        );
+      }
+    });
+  },
+
   render: function () {
     if (this.props.recipe != undefined) {
       var recipe = this.props.recipe;
@@ -188,8 +225,21 @@ var Recipe = React.createClass({
         <div>
           <div id="recipe">
             <div id="title"><h2>{recipe.title}</h2></div>
-            <div className="ingredients"> 
-              {this.renderIngredients(recipe.ingredients)}
+            <div className="recipe-content">
+              <div className="row clearfix">
+                <div className="ingredients"> 
+                  <h3>Ingredients</h3>
+                  {this.renderIngredients(recipe.ingredients)}
+                </div>
+                <div className="cooking-tools">
+                  <h3>Cooking Tools</h3>
+                  {this.renderList(recipe['cooking tools'])}
+                </div>
+              </div>
+              <div className="steps">
+                <h3>Steps</h3>
+                {this.renderNumericalList(recipe.steps)}
+              </div>
             </div>
           </div>
         </div>
