@@ -17,6 +17,12 @@ body {
   height: 100vh;
 }
 
+.clearfix, .clearfix:before, .clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 #content {
   padding-top: 50px;
   max-width: 768px;
@@ -81,6 +87,43 @@ body {
 
 #recipe-form .recipe-transforms .Select:first-child, #recipe-form .recipe-transforms .Select:nth-child(2)  {
   margin-right: 2%;
+}
+
+#recipe {
+  padding: 20px;
+  background: #fff;
+}
+
+#recipe #title {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+#recipe #title h2 {
+  margin-top: 0px;
+}
+
+#recipe .recipe-content {
+  padding: 5px;
+}
+
+#recipe .recipe-content h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#recipe .recipe-content .row {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#recipe .recipe-content .row > div {
+  display: inline-block;
+  float: left;
+}
+
+#recipe .recipe-content .row > div:first-child {
+  margin-right: 20px;
 }
 
 /* CSS LOADER */

@@ -21,8 +21,9 @@ var VALID_CUISINE_OPTIONS = [
 var VALID_HEALTH_OPTIONS = [
   { value: 'NONE', label: 'No health transformation' },
   { value: 'HEALTHY', label: 'Healthy' }
-]
+];
 
+// TEST :http://allrecipes.com/recipe/219929/heathers-fried-chicken/
 
 var RecipeContainer = React.createClass({
   getInitialState: function () {
@@ -181,15 +182,39 @@ var Recipe = React.createClass({
     });
   },
 
+  renderNumericalList: function (list) {
+    return list.map(function (item, index) {
+      return (
+        <div key={index}>
+          {index + 1}) { item }
+        </div>
+      );
+    });
+  },
+
   render: function () {
+    console.log(this.props.recipe)
     if (this.props.recipe != undefined) {
       var recipe = this.props.recipe;
       return (
         <div>
           <div id="recipe">
             <div id="title"><h2>{recipe.title}</h2></div>
-            <div className="ingredients"> 
-              {this.renderIngredients(recipe.ingredients)}
+            <div className="recipe-content">
+              <div className="row clearfix">
+                <div className="ingredients"> 
+                  <h3>Ingredients</h3>
+                  {this.renderIngredients(recipe.ingredients)}
+                </div>
+                <div className="cooking-tools">
+                  <h3>Cooking Tools</h3>
+                  {this.renderList(recipe['cooking tools'])}
+                </div>
+              </div>
+              <div className="steps">
+                <h3>Steps</h3>
+                {this.renderNumericalList(recipe.steps)}
+              </div>
             </div>
           </div>
         </div>
