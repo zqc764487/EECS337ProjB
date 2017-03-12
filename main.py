@@ -38,14 +38,13 @@ def fetchRecipe():
 
 	if 'cuisine' in data:
 		cuisine_transform = data["cuisine"]
-		print convertCuisine(recipe, cuisine_transform)
 		recipe = replaceIngredients(recipe, convertCuisine(recipe, cuisine_transform))
 
 	if 'health' in data:
 		health_transform = data["health"]
+		recipe = replaceIngredients(recipe, convertCuisine(recipe, health_transform))
 
 	if 'veg' in data:
-		# print makeVegetarian(recipe)
 		recipe = replaceIngredients(recipe, makeVegetarian(recipe))
 
 	return jsonify(recipe)
