@@ -12,11 +12,18 @@ FREQ_FILE_I = 'resources/freq_set_i.txt'
 FREQ_FILE_F = 'resources/freq_set_f.txt'
 FREQ_FILE_G = 'resources/freq_set_g.txt'
 FREQ_FILE_A = 'resources/freq_set_a.txt'
+FREQ_FILE_HEALTHY = 'resources/freq_set_healty.txt'
+FREQ_FILE_LOWCAL = 'resources/freq_set_lowCal.txt'
+FREQ_FILE_LOWFAT = 'resources/freq_set_lowFat.txt'
 RECIPE_FILE = 'resources/recipe_set.txt'
 RECIPE_INDIAN_FOOD = 'resources/indian_recipe_set.txt'
 RECIPE_FRENCH_FOOD = 'resources/french_recipe_set.txt'
 RECIPE_GERMAN_FOOD = 'resources/german_recipe_set.txt'
 RECIPE_AFRICAN_FOOD = 'resources/african_recipe_set.txt'
+RECIPE_HEALTHY_FOOD = 'resources/healthy_recipe_set.txt'
+RECIPE_LOWCAL_FOOD = 'resources/lowCal_recipe_set.txt'
+RECIPE_LOWFAT_FOOD = 'resources/lowFat_recipe_set.txt'
+
 
 
 
@@ -58,7 +65,7 @@ def crawl(links, queue, limit=100):
 #Traverse recipe
 
 def collect_recipe_file(links, file=RECIPE_AFRICAN_FOOD):
-	with open(RECIPE_AFRICAN_FOOD, 'a+') as fout:
+	with open(file, 'a+') as fout:
 		fout.writelines([l + '\n' for l in links])
 
 
@@ -76,7 +83,7 @@ def fetchRecipeURL(input_url):
     return links
 
 
-def traverseRecipeURL(input_url, page_amount):
+def traverseRecipeURL(input_url, page_amount, output_file):
 	baseURL = input_url
 	link_set = set()
 	params = '?page=' if baseURL.endswith("/") else '&page='
@@ -89,9 +96,9 @@ def traverseRecipeURL(input_url, page_amount):
 			print fetchRecipeURL(url)
 		else:  
 			print str(i-1) + " pages has been processed."
-			collect_recipe_file(link_set, RECIPE_AFRICAN_FOOD)
-			return 
-	collect_recipe_file(link_set, RECIPE_AFRICAN_FOOD)
+			return
+			
+	collect_recipe_file(link_set, output_file)
 
 
 
@@ -103,9 +110,9 @@ def write_freq_file(links, file):
 def freq_ingredient(read_file, write_file):
 	recipe_list = read_recipe_file(read_file)
 	cnt = Counter()
-	for recipe in recipe_list:
+	for i, recipe in enumerate(recipe_list):
 		temp = fetch_recipe(recipe)
-		print "Processing..."
+		print "Processing %s out of %s..." % (i, len(recipe_list))
 		for ingredient in temp.get('ingredients'):
 			cnt[ingredient.get('name')] += 1
 
@@ -134,3 +141,14 @@ def read_freq_file(file=FREQ_FILE_I):
 			val = re.sub('\n', '', val)
 			d[str(key)] = int(val)
 	return d
+
+
+
+
+
+freq_ingredient(RECIPE_LOWFAT_FOOD, FREQ_FILE_LOWFAT)
+freq_ingredient(RECIPE_LOWCAL_FOOD, FREQ_FILE_LOWCAL)
+'''
+write_freq_file("http://allrecipes.com/recipes/1232/healthy-recipes/low-calorie/", FREQ_FILE_LOWCAL)
+write_freq_file("http://allrecipes.com/recipes/1231/healthy-recipes/low-fat/", FREQ_FILE_LOWFAT)
+'''
