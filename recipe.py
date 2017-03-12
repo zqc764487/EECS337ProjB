@@ -1,11 +1,6 @@
+# -*- coding: utf-8 -*-
 import urllib
 import re
-caps = "([A-Z])"
-prefixes = "(Mr|St|Mrs|Ms|Dr)[.]"
-suffixes = "(Inc|Ltd|Jr|Sr|Co)"
-starters = "(Mr|Mrs|Ms|Dr|He\s|She\s|It\s|They\s|Their\s|Our\s|We\s|But\s|However\s|That\s|This\s|Wherever)"
-acronyms = "([A-Z][.][A-Z][.](?:[A-Z][.])?)"
-websites = "[.](com|net|org|io|gov)"
 import nltk
 from bs4 import BeautifulSoup
 from collections import Counter, defaultdict
@@ -13,7 +8,7 @@ from nltk.tokenize import RegexpTokenizer
 from urlparse import urljoin
 import random
 from food import *
-from crawl import *
+#from crawl import *
 
 UNITS_FILE = "resources/units.txt"
 TOOLS_FILE = "resources/tools.txt"
@@ -566,6 +561,15 @@ def convertCuisine(recipe, toType):
     return substitutes
 def intersect(a, b):
     return list(set(a) & set(b))
+
+#Globals for Scentence Splitting
+caps = "([A-Z])"
+prefixes = "(Mr|St|Mrs|Ms|Dr)[.]"
+suffixes = "(Inc|Ltd|Jr|Sr|Co)"
+starters = "(Mr|Mrs|Ms|Dr|He\s|She\s|It\s|They\s|Their\s|Our\s|We\s|But\s|However\s|That\s|This\s|Wherever)"
+acronyms = "([A-Z][.][A-Z][.](?:[A-Z][.])?)"
+websites = "[.](com|net|org|io|gov)"
+digits = "([0-9])"
 
 def split_into_sentences(text):
     text = " " + text + "  "

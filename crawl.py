@@ -110,9 +110,9 @@ def write_freq_file(links, file):
 def freq_ingredient(read_file, write_file):
 	recipe_list = read_recipe_file(read_file)
 	cnt = Counter()
-	for recipe in recipe_list:
+	for i, recipe in enumerate(recipe_list):
 		temp = fetch_recipe(recipe)
-		print "Processing..."
+		print "Processing %s out of %s..." % (i, len(recipe_list))
 		for ingredient in temp.get('ingredients'):
 			cnt[ingredient.get('name')] += 1
 
@@ -146,7 +146,8 @@ def read_freq_file(file=FREQ_FILE_I):
 
 
 
-freq_ingredient(RECIPE_HEALTHY_FOOD, FREQ_FILE_HEALTHY)
+freq_ingredient(RECIPE_LOWFAT_FOOD, FREQ_FILE_LOWFAT)
+freq_ingredient(RECIPE_LOWCAL_FOOD, FREQ_FILE_LOWCAL)
 '''
 write_freq_file("http://allrecipes.com/recipes/1232/healthy-recipes/low-calorie/", FREQ_FILE_LOWCAL)
 write_freq_file("http://allrecipes.com/recipes/1231/healthy-recipes/low-fat/", FREQ_FILE_LOWFAT)
