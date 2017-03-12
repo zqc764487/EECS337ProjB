@@ -51,18 +51,20 @@ var RecipeContainer = React.createClass({
   },
 
   fetchRecipe: function (endpoint, method, recipeUrl, callback) {
-    this.setState({
-      loading: true
-    });
-    var url = endpoint; // local
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-        callback(xmlHttp.responseText);
+    if (recipeUrl) {
+      this.setState({
+        loading: true
+      });
+      var url = endpoint; // local
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+          callback(xmlHttp.responseText);
+        }
       }
+      xmlHttp.open(method, url, true);
+      xmlHttp.send(recipeUrl);
     }
-    xmlHttp.open(method, url, true);
-    xmlHttp.send(recipeUrl);
   },
 
   onTransform: function (value, type) { 
@@ -151,7 +153,7 @@ var RecipeForm = React.createClass({
                   props.onTransform(value, 'HEALTH');
                 }} />
             </div>
-            <input id="recipe-search-button" type="submit" value="Submit" />
+            <input id="recipe-search-button" className={ this.props.query ? "active" : "inactive" } type="submit" value="Submit" />
           </form>
         </div>
       );
@@ -184,11 +186,13 @@ var Recipe = React.createClass({
 
   renderNumericalList: function (list) {
     return list.map(function (item, index) {
-      return (
-        <div key={index}>
-          {index + 1}) { item }
-        </div>
-      );
+      if (item) {
+        return (
+          <div key={index}>
+            {index + 1}) { item }
+          </div>
+        );
+      }
     });
   },
 

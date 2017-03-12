@@ -74,6 +74,11 @@ body {
   cursor: pointer;
 }
 
+#recipe-form #recipe-search-button.inactive {
+  background: #ccc;
+  border-bottom-color: #bbb;
+}
+
 #recipe-form .recipe-transforms {
   margin-top: 15px;
   margin-bottom: 10px;
