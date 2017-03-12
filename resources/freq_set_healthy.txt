@@ -1,0 +1,425 @@
+oil: 316
+salt: 224
+onion: 175
+cloves garlic: 148
+water: 122
+ground pepper: 111
+sugar: 107
+: 93
+salt and pepper: 87
+ground cumin: 76
+powder: 65
+oregano: 62
+onions: 60
+bell pepper: 60
+parsley: 60
+basil: 58
+clove garlic: 55
+honey: 53
+chicken broth: 47
+ground cinnamon: 47
+ounce beans: 47
+flour: 44
+pepper: 44
+lemon juice: 43
+wheat flour: 43
+soy sauce: 43
+cilantro: 40
+cayenne pepper: 39
+tomatoes: 39
+egg: 37
+minced garlic: 37
+potatoes: 36
+thyme: 33
+carrots: 33
+chili powder: 32
+vinegar: 30
+pepper flakes: 30
+paprika: 27
+baking powder: 26
+stalks celery: 25
+juice: 24
+butter: 24
+baking soda: 24
+cheese: 21
+milk: 20
+vanilla extract: 20
+worcestershire sauce: 20
+ounce garbanzo beans: 20
+wine: 19
+cornstarch: 19
+cumin: 18
+lime juice: 18
+ketchup: 17
+walnuts: 17
+ounce cannellini beans: 17
+zucchini: 17
+quinoa: 17
+mushrooms: 17
+raisins: 17
+lemon: 17
+ground cayenne pepper: 16
+grated cheese: 16
+ground nutmeg: 16
+ounce kidney beans: 16
+salt and ground pepper: 16
+ounce tomato sauce: 16
+lime: 15
+wine vinegar: 15
+spinach: 15
+bread crumbs: 15
+broth: 15
+dijon mustard: 14
+onion powder: 14
+seasoning: 14
+oats: 14
+bananas: 14
+brown sugar: 14
+strawberries: 14
+ounce diced tomatoes: 14
+mayonnaise: 14
+ginger root: 14
+cucumber: 13
+banana: 13
+celery: 13
+orange juice: 13
+beans: 13
+medium onion: 13
+mustard: 13
+eggs: 12
+wheat germ: 12
+canola oil: 12
+bell peppers: 11
+applesauce: 11
+carrot: 11
+tomato: 11
+ounce whole kernel corn: 11
+rice: 11
+corn kernels: 11
+lentils: 11
+freshly ground pepper: 11
+ground turkey: 11
+potato: 11
+bay leaf: 10
+yeast: 10
+bay leaves: 10
+tomato paste: 10
+kosher salt: 10
+ground coriander: 10
+kale: 10
+roma plum tomatoes: 10
+buttermilk: 10
+ounce chicken broth: 10
+curry powder: 10
+pepper sauce: 10
+egg whites: 10
+blueberries: 9
+apple: 9
+ounce crushed tomatoes: 9
+stalk celery: 9
+jalapeno pepper: 9
+cornmeal: 9
+peanut butter: 9
+peas: 9
+shrimp: 9
+ground allspice: 9
+garlic salt: 8
+salsa: 8
+rosemary: 8
+chopped garlic: 8
+ounce tomatoes: 8
+bread flour: 8
+ground ginger: 8
+apples - peeled: 8
+skinless: 8
+cream: 8
+asparagus: 7
+sea salt: 7
+finely onion: 7
+pork tenderloin: 7
+dried rosemary: 7
+butternut squash - peeled: 7
+package penne pasta: 7
+plain yogurt: 7
+boneless: 7
+jalapeno peppers: 7
+sesame oil: 7
+dill weed: 7
+medium bell pepper: 7
+oil for frying: 7
+ground turmeric: 7
+peppers: 7
+sesame seeds: 7
+mozzarella cheese: 6
+salt and freshly ground pepper: 6
+thinly onion: 6
+limes: 6
+chicken stock: 6
+cloves: 6
+apples: 6
+ounce pinto beans: 6
+cilantro leaves: 6
+rice vinegar: 6
+ham: 6
+teriyaki sauce: 6
+ounce garbanzo beans chickpeas: 6
+jack cheese: 5
+plum tomatoes: 5
+fillets tilapia: 5
+stock: 5
+parmesan cheese: 5
+barley: 5
+celery salt: 5
+ground cloves: 5
+ounce tuna: 5
+molasses: 5
+basil leaves: 5
+nonfat milk: 5
+bunch onions: 5
+seedless grapes: 5
+oyster sauce: 5
+ounce chile peppers: 5
+spinach leaves: 5
+cranberries: 5
+cider vinegar: 5
+dry lentils: 5
+corn tortillas: 5
+grated ginger root: 5
+virgin oil: 5
+sunflower seeds: 5
+bacon: 4
+skim milk: 4
+balsamic vinegar: 4
+apple juice: 4
+seafood seasoning: 4
+water 110 degrees f/45 degrees c: 4
+tahini: 4
+ounce tomato paste: 4
+lime zest: 4
+cooking spray: 4
+fettuccine pasta: 4
+seashell pasta: 4
+cherry tomatoes: 4
+sweet relish: 4
+shallots: 4
+cube chicken bouillon: 4
+uncooked couscous: 4
+orzo pasta: 4
+split peas: 4
+ounce stewed tomatoes: 4
+sweet potatoes: 4
+beer: 4
+poultry seasoning: 4
+freshly pepper: 4
+ounce whole tomatoes: 4
+baking potatoes: 4
+ham bone: 4
+zest: 4
+italian seasoning: 4
+corn: 4
+cooking oats: 4
+ground coriander seed: 4
+ounce diced chiles: 3
+machine yeast: 3
+tarragon: 3
+ounce diced tomatoes chile peppers: 3
+raspberries: 3
+cooked chicken: 3
+chili sauce: 3
+sodium soy sauce: 3
+lemons: 3
+taco seasoning mix: 3
+package beans: 3
+ounce pineapple: 3
+package onion soup mix: 3
+bunches onions: 3
+medium tomatoes: 3
+cabbage: 3
+ounce condensed cream of chicken soup: 3
+oat bran: 3
+bunch kale: 3
+ounce hominy: 3
+orange: 3
+crushed garlic: 3
+grain rice: 3
+pinto beans: 3
+kiwis: 3
+bunch cilantro: 3
+boneless chicken breast halves: 3
+apricot preserves: 3
+pine nuts: 3
+lemon pepper: 3
+wheat bran: 3
+miso paste: 3
+dried onion flakes: 3
+prepared horseradish: 3
+medium head cabbage: 3
+shallot: 3
+roma tomatoes: 3
+ounce chickpeas: 3
+package frozen spinach: 3
+bag spinach: 3
+bay scallops: 3
+beans chickpeas: 3
+package pasta: 3
+ounce garbanzo: 3
+crushed pepper flakes: 3
+barbecue sauce: 3
+minced cilantro: 3
+cod: 3
+marjoram: 3
+medium potatoes: 3
+mustard powder: 3
+ground paprika: 3
+ounce kidney beans liquid: 3
+rolled oats: 3
+margarine: 3
+head cabbage: 3
+maple syrup: 3
+ice: 3
+roasted peppers: 3
+package corn tortillas: 3
+pork chops: 3
+skewers: 3
+tomatillos: 3
+ounce whole peeled tomatoes liquid: 3
+prepared mustard: 3
+zucchinis: 3
+inch flour tortillas: 3
+ounce petite diced tomatoes: 2
+ounce canned crushed tomatoes: 2
+ditalini pasta: 2
+rice wine vinegar: 2
+raisins optional: 2
+fat: 2
+package yeast: 2
+boiling water: 2
+soy milk: 2
+ounce chopped chilies: 2
+ounce pineapple tidbits: 2
+package bow tie farfalle pasta: 2
+kidney beans: 2
+ounce peach pie filling: 2
+diced: 2
+marinade: 2
+packed spinach: 2
+package cauliflower broccoli and pepper: 2
+herb seasoning: 2
+ounce box frozen spinach: 2
+dashes pepper sauce: 2
+scallops: 2
+cocoa powder: 2
+peeled: 2
+package broccoli florets: 2
+popcorn: 2
+penne pasta: 2
+dark brown sugar: 2
+ounce black-eyed peas: 2
+package bow tie pasta: 2
+lime cream:: 2
+spinach pasta: 2
+ounce bean soup: 2
+jalapeno pepper including seeds: 2
+ounce italian-style tomatoes: 2
+brown rice: 2
+summer savory: 2
+butternut squash: 2
+flax seed: 2
+container cream: 2
+dressing: 2
+package rice: 2
+egg white: 2
+ounce milk: 2
+steak sauce: 2
+liquid smoke flavoring: 2
+yukon potatoes: 2
+oil or canola oil: 2
+bean cakes:: 2
+ounce whole peeled tomatoes: 2
+eggplants: 2
+package seasoning mix: 2
+apple butter: 2
+russet potato: 2
+baby carrots: 2
+medium zucchini: 2
+head broccoli: 2
+beaten egg: 2
+pesto: 2
+grated cheese for topping: 2
+spicy mustard: 2
+oranges: 2
+bread: 2
+cocoa: 2
+sliced almonds: 2
+baking potato: 2
+ounce tub vanilla yogurt: 2
+medium shrimp - peeled and deveined: 2
+carbonated beverage: 2
+pitted kalamata: 2
+ounce mexican-style corn: 2
+package linguine pasta: 2
+cucumber - scored: 2
+chiles: 2
+grapes: 2
+ounce sodium tomato soup: 2
+mango - peeled: 2
+bean sauce: 2
+tilapia: 2
+dried crumbs: 2
+ounce mandarin orange segments: 2
+cajun seasoning: 2
+sliced button mushrooms: 2
+apple - peeled: 2
+parsley optional: 2
+wheat bread: 2
+finely bell pepper: 2
+sweet potato: 2
+bunch chard: 2
+ounce chopped chile peppers: 2
+fillets: 2
+ounce green beans: 2
+mint: 2
+uncooked linguine: 2
+flax seeds: 2
+salmon: 2
+ounce chunk chicken: 2
+rye flour: 2
+heads broccoli: 2
+plain crumbs: 2
+envelope onion soup mix: 2
+gala apple: 2
+sage: 2
+parsley flakes: 2
+brown lentils: 2
+breadcrumbs: 2
+wheat couscous: 2
+inch sticks cinnamon: 2
+package miniature marshmallows: 2
+chunky salsa: 2
+pumpkin puree: 2
+ounce tomatoes chile peppers: 2
+pickle relish: 2
+pound pork tenderloin: 2
+ounce diced tomatoes juice: 2
+ounce navy beans: 2
+adobo sauce from peppers: 2
+bulgur: 2
+vermicelli pasta: 2
+feta cheese: 2
+finely horseradish: 2
+garbanzo beans: 2
+ounce peeled and diced tomatoes: 2
+pound butternut squash: 2
+ounce salsa: 2
+and almonds: 2
+package frozen soybeans: 2
+sherry vinegar: 2
+yam: 2
+package pasta shells: 2
+cubes bouillon knorr: 2
+peas liquid: 2
+ounce mushrooms: 2
+chile: 2
+seasoning salt: 2
+ounce packet mix: 2
+sauce: 2
