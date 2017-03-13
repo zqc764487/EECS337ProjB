@@ -466,12 +466,13 @@ def fetchRecipeURL(req_recipe):
     return random.choice(links[1:])
 
 def replaceWholeWord(sentence, replacement, sub):
-    words = nltk.word_tokenize(sentence)
-    for index, word in enumerate(words):
-        if word == str(replacement):
-            words[index] = str(sub)
-    return " ".join(words)
-
+    pattern = re.compile(r'\b%s\b' % replacement, re.I)
+    return pattern.sub(sub, sentence)
+    #words = nltk.word_tokenize(sentence)
+    #for index, word in enumerate(words):
+    #    if word == str(replacement):
+    #        words[index] = str(sub)
+    #return " ".join(words)
 
 def replaceIngredients(recipe, substitutes):
     for replacement in substitutes:
