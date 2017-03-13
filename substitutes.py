@@ -15,6 +15,18 @@ FS_URL = 'http://foodsubs.com/'
 FS_SYN_FILE = 'resources/fs_synonyms.txt'
 FS_SUB_FILE = 'resources/fs_substitutes.txt'
 
+def fs_master(syn_file=FS_SYN_FILE, sub_file=FS_SUB_FILE):
+	syn_list, sub_list = fs_scrape()
+	with open(syn_file, 'w') as fout:
+		for syns in syn_list:
+			if syns and len(syns) >= 2:
+				fout.write(','.join(syns) + '\n')
+	with open(sub_file, 'w') as fout:
+		for subs in sub_list:
+			if subs and len(subs) >= 2:
+				fout.write(','.join(subs) + '\n')
+	return syn_list, sub_list
+
 def fs_scrape(url=FS_URL):
 	queue = fs_scrape_categories(url=url)
 	queue = [FS_URL + item if not item.startswith('http') else item for item in queue]
@@ -98,5 +110,4 @@ def fs_make_substitutes(soup):
 							psubs.append(sub)
 				substitutes.append(psubs)
 	return synonyms, substitutes
-
 

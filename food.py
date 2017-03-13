@@ -6,14 +6,14 @@ wn = wordnet.wordnet
 from util import loadCategorization
 
 # Whether to use a fallback strategy when matching a query to a node.
-FALLBACK = False
+FALLBACK = True
 
 # Category lists.
 CATEGORY_FILES = []
 # Substitution lists.
-SUBSTITUTE_FILES = ['resources/VegetarianIngredientSubstitutes.csv']#, 'resources/fs_substitutes.txt']
+SUBSTITUTE_FILES = ['resources/VegetarianIngredientSubstitutes.csv'] #, 'resources/fs_substitutes.txt']
 # Synonym lists.
-SYNONYM_FILES = []#['resources/fs_synonyms.txt']
+SYNONYM_FILES = [] # ['resources/fs_synonyms.txt']
 # Properties to attach to various nodes.
 PROPERTIES_FILES = ['resources/food_properties.txt']
 
@@ -133,7 +133,7 @@ class Index(dict):
 				if all_properties(result, properties):
 					return result
 		for lemma in self.lemmas:
-			if lemma.find(query) >= 0 and len(self.lemmas[lemma]) > 0:
+			if not lemma.startswith('<') and lemma.find(query) >= 0 and len(self.lemmas[lemma]) > 0:
 				for result in self.lemmas[lemma]:
 					if all_properties(result, properties):
 						return result
@@ -164,6 +164,8 @@ class Node(object):
 		self.parents = []
 		self.children = []
 		self.cancels = []
+		self.ancestors = set()
+		self.descendants = set()
 	
 		if lemmas:
 			self.add_lemmas(lemmas)
@@ -223,20 +225,44 @@ class Node(object):
 			self.add_property(property)
 
 	def add_parent(self, parent):
+		if self == parent or self in parent.ancestors:
+			return # No cycles
 		if parent not in self.parents:
 			self.parents.append(parent)
+			self.ancestors.add(parent)
+			self.ancestors |= parent.ancestors
+			for descendant in self.descendants:
+				descendant.ancestors.add(parent)
+				descendant.ancestors |= parent.ancestors
 		if self not in parent.children:
 			parent.children.append(self)
+			parent.descendants.add(self)
+			parent.descendants |= self.descendants
+			for ancestor in parent.ancestors:
+				ancestor.descendants.add(self)
+				ancestor.descendants |= self.descendants
 
 	def add_parents(self, parents):
 		for parent in parents:
 			self.add_parent(parent)
 
 	def add_child(self, child):
+		if child == self or child in self.ancestors:
+			return # No cycles
 		if child not in self.children:
 			self.children.append(child)
+			self.descendants.add(child)
+			self.descendants |= child.descendants
+			for ancestor in self.ancestors:
+				ancestor.descendants.add(child)
+				ancestor.descendants |= child.descendants
 		if self not in child.parents:
 			child.parents.append(self)
+			child.ancestors.add(self)
+			child.ancestors |= self.ancestors
+			for descendant in child.descendants:
+				descendant.ancestors.add(self)
+				descendant.ancestors |= self.ancestors
 
 	def add_children(self, children):
 		for child in children:
@@ -345,33 +371,20 @@ class Node(object):
 				return item
 		return None"""
 
-	def ancestors(self):
-		ancestors = []
+	def rebuild_ancestors(self):
+		ancestors = set()
 		queue = [parent for parent in self.parents]
 		while queue:
 			item, queue = queue[0], queue[1:]
-			if item not in ancestors:
-				ancestors.append(item)
+			ancestors.add(item)
 			queue += item.parents
-		return ancestors
+		self._ancestors = ancestors
 
-	def shared_ancestor(self, other):
-		other_ancestors = other.ancestors()
-		best_ancestor, best_position = None, len(other_ancestors)
-		for a in self.ancestors():
-			if a in other_ancestors:
-				p = other_ancestors.index(a)
-				if p < best_position:
-					best_ancestor, best_position = a, p
-		return best_ancestor
+	def shared_ancestors(self, other):
+		return self.ancestors & other.ancestors
 
 	def is_a(self, ancestor):
-		if self == ancestor:
-			return True
-		for parent in self.parents:
-			if parent.is_a(ancestor):
-				return True
-		return False
+		return ancestor in self.ancestors
 
 	def print_graph(self, tab=0):
 		print '\t' * tab + str(self)
@@ -482,7 +495,7 @@ def read_substitute_files(files, graph=None):
 		for category, members in loadCategorization(file).iteritems():
 			category, members = category.strip(), [member.strip() for member in members]
 			base = index.pick_one(category) or Node(name=category, index=index)
-			name = category + ' substitutes'
+			name = '<' + category + ' substitutes>'
 			root = index.pick_one(name) or Node(name=name, index=index, properties=['.substitute'])
 			root.add_child(base)
 			roots.append(root)

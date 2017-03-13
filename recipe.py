@@ -476,7 +476,7 @@ def replaceWholeWord(sentence, replacement, sub):
 def replaceIngredients(recipe, substitutes):
     for replacement in substitutes:
         substitute = substitutes[replacement]
-        swap = str(random.choice(substitute).name)
+        swap = str(random.choice(substitute).name) if substitute else str(replacement)
 
         # if has wordnet naming scheme, extract food name
         if "." in swap:
